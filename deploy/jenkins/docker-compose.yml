@@ -1,0 +1,12 @@
+version: '3'
+services:
+  mysql:
+    image: daocloud.io/darebeat/jenkins
+    networks:
+      - local
+    ports:
+      - "8089:8080"
+    container_name: jenkins
+
+networks:
+  local:
