@@ -6,3 +6,8 @@ services:
       - "6379:6379"
     container_name: redis
     tty: true
+
+networks:
+  default:
+    external:
+      name: share
