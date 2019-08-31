@@ -1,4 +1,4 @@
-FROM darebeat/ssh
+FROM daocloud.io/darebeat/ssh
 
 MAINTAINER darebeat<darebeat@126.com>
 
