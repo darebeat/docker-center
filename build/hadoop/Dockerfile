@@ -49,4 +49,4 @@ RUN mkdir -p ~/hdfs/namenode && \
 # format namenode
 RUN $HADOOP_HOME/bin/hdfs namenode -format
 
-CMD ["/bootstrap.sh", "-d"]
+CMD ["/usr/sbin/sshd", "-D"]

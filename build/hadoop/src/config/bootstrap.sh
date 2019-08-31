@@ -5,6 +5,10 @@
 $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 
 # service sshd start
+/usr/sbin/sshd -D &
+
+echo -e "\n"
+
 $HADOOP_PREFIX/sbin/start-dfs.sh
 
 echo -e "\n"
