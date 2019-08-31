@@ -9,7 +9,8 @@ ARG HADOOP_VERSION=2.7.2
 WORKDIR /root
 
 # install hadoop
-RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
+RUN yum install -y which && \
+    wget https://github.com/kiwenlau/compile-hadoop/releases/download/${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
     mv hadoop-${HADOOP_VERSION} /usr/local/hadoop && \
     rm hadoop-${HADOOP_VERSION}.tar.gz

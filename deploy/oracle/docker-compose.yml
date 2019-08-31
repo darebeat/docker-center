@@ -1,0 +1,17 @@
+version: '2'
+services:
+  oracle:
+    image: daocloud.io/darebeat/oracle-xe-11g
+    container_name: oracle
+    ports:
+      - 49161:1521
+      - 8080:8080
+    environment:
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_DISABLE_ASYNCH_IO=true
+      - ORACLE_ENABLE_XDB=true
+
+networks:
+  default:
+    external:
+      name: share

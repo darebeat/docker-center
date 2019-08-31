@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM daocloud.io/darebeat/jdk8
 MAINTAINER darebeat<darebeat@126.com>
 
 ARG JENKINS_VERSION=latest

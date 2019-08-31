@@ -1,0 +1,19 @@
+version: '3'
+services:
+  sqlserver:
+    container_name: mssql
+    image: microsoft/mssql-server-linux
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Mssql0173!
+      - TZ=Asia/Shanghai
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ~/data/mssql:/var/opt/mssql
+
+networks:
+  default:
+    external:
+      name: share
