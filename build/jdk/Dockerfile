@@ -2,9 +2,9 @@ FROM daocloud.io/darebeat/ssh
 
 MAINTAINER darebeat<darebeat@126.com>
 
-ARG JDK_VERSION=221
 # java
-RUN wget -q --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u${JDK_VERSION}-linux-x64.tar.gz && \
+RUN wget -q --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+	https://download.oracle.com/otn/java/jdk/8u221-b11/230deb18db3e4014bb8e3e8324f81b43/jdk-8u221-linux-x64.tar.gz && \
     tar -xvzf jdk-8u${JDK_VERSION}-linux-x64.tar.gz -C /opt && \
     rm -rf jdk-8u${JDK_VERSION}-linux-x64.tar.gz
 
