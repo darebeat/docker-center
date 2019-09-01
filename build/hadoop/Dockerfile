@@ -12,20 +12,20 @@ WORKDIR /root
 RUN yum install -y which && \
     wget https://github.com/kiwenlau/compile-hadoop/releases/download/${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
-    mv hadoop-${HADOOP_VERSION} /usr/local/hadoop && \
+    mv hadoop-${HADOOP_VERSION} /opt/hadoop && \
     rm hadoop-${HADOOP_VERSION}.tar.gz
 
 # set environment variable
 ENV JAVA_HOME=/opt/jdk1.8.0_${JDK_VERSION}
-ENV HADOOP_HOME=/usr/local/hadoop
-ENV HADOOP_PREFIX /usr/local/hadoop
-ENV HADOOP_COMMON_HOME /usr/local/hadoop
-ENV HADOOP_HDFS_HOME /usr/local/hadoop
-ENV HADOOP_MAPRED_HOME /usr/local/hadoop
-ENV HADOOP_YARN_HOME /usr/local/hadoop
-ENV HADOOP_CONF_DIR /usr/local/hadoop/etc/hadoop
+ENV HADOOP_HOME=/opt/hadoop
+ENV HADOOP_PREFIX /opt/hadoop
+ENV HADOOP_COMMON_HOME /opt/hadoop
+ENV HADOOP_HDFS_HOME /opt/hadoop
+ENV HADOOP_MAPRED_HOME /opt/hadoop
+ENV HADOOP_YARN_HOME /opt/hadoop
+ENV HADOOP_CONF_DIR /opt/hadoop/etc/hadoop
 ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
-ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
+ENV PATH=$PATH:/opt/hadoop/bin:/opt/hadoop/sbin
 
 COPY src/config/* /tmp/
 
