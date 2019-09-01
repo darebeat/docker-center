@@ -9,7 +9,7 @@
         <value>org.apache.hadoop.mapred.ShuffleHandler</value>
     </property>
     <property>
-        <name>yarn.resourcemanager.hostname</name>
-        <value>hadoop-master</value>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
     </property>
 </configuration>

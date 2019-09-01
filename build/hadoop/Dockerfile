@@ -28,8 +28,9 @@ ENV PATH=$PATH:/opt/hadoop/bin:/opt/hadoop/sbin
 
 COPY src/config/* /tmp/
 
-RUN mkdir -p ~/hdfs/namenode && \
-    mkdir -p ~/hdfs/datanode && \
+RUN mkdir -p $HADOOP_HOME/namenode && \
+    mkdir -p $HADOOP_HOME/datanode && \
+    mkdir -p $HADOOP_HOME/tmp && \
     mkdir $HADOOP_HOME/logs && \
     mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/bootstrap.sh /bootstrap.sh && \
