@@ -6,16 +6,18 @@ services:
       - 50060:8088
       - 50070:50070
     container_name: hadoop-master
+    hostname: hadoop-master
     volumes:
-      - ./src/config/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
-      - ./src/config/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
-      - ./src/config/mapred-site.xml:/usr/local/hadoop/etc/hadoop/mapred-site.xml
-      - ./src/config/yarn-site.xml:/usr/local/hadoop/etc/hadoop/yarn-site.xml
-      - ./src/config/slaves:/usr/local/hadoop/etc/hadoop/slaves
+      - ./src/config/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
+      - ./src/config/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./src/config/mapred-site.xml:/opt/hadoop/etc/hadoop/mapred-site.xml
+      - ./src/config/yarn-site.xml:/opt/hadoop/etc/hadoop/yarn-site.xml
+      - ./src/config/slaves:/opt/hadoop/etc/hadoop/slaves
     entrypoint: wait-for -d hadoop-slave1:22,hadoop-slave2:22 -c '/bootstrap.sh'
   slave1:
     image: daocloud.io/darebeat/hadoop
     container_name: hadoop-slave1
+
   slave2:
     image: daocloud.io/darebeat/hadoop
     container_name: hadoop-slave2

@@ -4,12 +4,12 @@
         <name>yarn.nodemanager.aux-services</name>
         <value>mapreduce_shuffle</value>
     </property>
-    <property>
+    <!-- <property>
         <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
         <value>org.apache.hadoop.mapred.ShuffleHandler</value>
     </property>
     <property>
         <name>yarn.log-aggregation-enable</name>
         <value>true</value>
-    </property>
+    </property> -->
 </configuration>

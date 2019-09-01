@@ -17,14 +17,14 @@ RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/${HADOOP_V
 # set environment variable
 ENV JAVA_HOME=/opt/jdk1.8.0_${JDK_VERSION}
 ENV HADOOP_HOME=/opt/hadoop
-ENV HADOOP_PREFIX /opt/hadoop
-ENV HADOOP_COMMON_HOME /opt/hadoop
-ENV HADOOP_HDFS_HOME /opt/hadoop
-ENV HADOOP_MAPRED_HOME /opt/hadoop
-ENV HADOOP_YARN_HOME /opt/hadoop
-ENV HADOOP_CONF_DIR /opt/hadoop/etc/hadoop
-ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
-ENV PATH=$PATH:/opt/hadoop/bin:/opt/hadoop/sbin
+ENV HADOOP_PREFIX=$HADOOP_HOME
+ENV HADOOP_COMMON_HOME=$HADOOP_HOME
+ENV HADOOP_HDFS_HOME=$HADOOP_HOME
+ENV HADOOP_MAPRED_HOME=$HADOOP_HOME
+ENV HADOOP_YARN_HOME=$HADOOP_HOME
+ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+ENV YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop
+ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 COPY src/config/* /tmp/
 
