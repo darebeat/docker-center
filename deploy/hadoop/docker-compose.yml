@@ -1,0 +1,26 @@
+version: '3'
+services:
+  master:
+    image: daocloud.io/darebeat/hadoop
+    ports:
+      - 50060:8088
+      - 50070:50070
+    container_name: hadoop-master
+    volumes:
+      - ./src/config/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ./src/config/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ./src/config/mapred-site.xml:/usr/local/hadoop/etc/hadoop/mapred-site.xml
+      - ./src/config/yarn-site.xml:/usr/local/hadoop/etc/hadoop/yarn-site.xml
+      - ./src/config/slaves:/usr/local/hadoop/etc/hadoop/slaves
+    command: /bootstrap.sh
+  slave1:
+    image: daocloud.io/darebeat/hadoop
+    container_name: hadoop-slave2
+  slave2:
+    image: daocloud.io/darebeat/hadoop
+    container_name: hadoop-slave1
+
+networks:
+  default:
+    external:
+      name: share
