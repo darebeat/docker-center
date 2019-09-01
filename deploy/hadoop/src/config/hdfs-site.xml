@@ -2,12 +2,12 @@
 <configuration>
     <property>
         <name>dfs.namenode.name.dir</name>
-        <value>file:///opt/hadoop/namenode</value>
+        <value>file:///usr/local/hadoop/namenode</value>
         <description>NameNode directory for namespace and transaction logs storage.</description>
     </property>
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>file:///opt/hadoop/datanode</value>
+        <value>file:///usr/local/hadoop/datanode</value>
         <description>DataNode directory</description>
     </property>
     <property>

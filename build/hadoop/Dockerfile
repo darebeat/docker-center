@@ -4,6 +4,7 @@ MAINTAINER darebeat<darebeat@126.com>
 
 ARG JDK_VERSION=141
 ARG HADOOP_VERSION=2.7.2
+ARG HADOOP_HOME=/usr/local/hadoop
 
 
 WORKDIR /root
@@ -11,12 +12,12 @@ WORKDIR /root
 # install hadoop
 RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
-    mv hadoop-${HADOOP_VERSION} /opt/hadoop && \
+    mv hadoop-${HADOOP_VERSION} $HADOOP_HOME && \
     rm hadoop-${HADOOP_VERSION}.tar.gz
 
 # set environment variable
 ENV JAVA_HOME=/opt/jdk1.8.0_${JDK_VERSION}
-ENV HADOOP_HOME=/opt/hadoop
+ENV HADOOP_HOME=$HADOOP_HOME
 ENV HADOOP_PREFIX=$HADOOP_HOME
 ENV HADOOP_COMMON_HOME=$HADOOP_HOME
 ENV HADOOP_HDFS_HOME=$HADOOP_HOME

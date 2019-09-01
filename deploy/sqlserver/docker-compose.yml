@@ -11,7 +11,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - /etc/localtime:/etc/localtime
-      - ~/data/mssql:/var/opt/mssql
+      # - ~/data/mssql:/var/opt/mssql
 
 networks:
   default:
