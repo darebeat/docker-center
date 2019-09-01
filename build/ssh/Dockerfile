@@ -2,7 +2,7 @@ FROM centos
 
 MAINTAINER darebeat<darebeat@126.com>
 
-RUN yum install -y openssh-server sudo openssh-clients wget
+RUN yum install -y openssh-server sudo openssh-clients wget nc which
 
 # ADD USER:root:root and add it into `sudoers`
 # ssh login each other without password
@@ -15,9 +15,11 @@ RUN sed -i 's/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g' /etc/ssh/ss
   && ssh-keygen -t dsa -f /etc/ssh/ssh_host_ed25519_key -N '' \
   && cp -v /root/.ssh/{id_rsa.pub,authorized_keys}
 
-COPY ./config /root/.ssh/
+ADD src/config /root/.ssh/config
+ADD src/wait-for /usr/local/bin/wait-for
 
-RUN chmod -v 0400 /root/.ssh/authorized_keys \
+RUN chmod +x /usr/local/bin/wait-for \
+  && chmod -v 0400 /root/.ssh/authorized_keys \
   && chmod -v 0400  /root/.ssh/config \
   && mkdir /var/run/sshd
 

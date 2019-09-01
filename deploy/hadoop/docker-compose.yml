@@ -12,13 +12,14 @@ services:
       - ./src/config/mapred-site.xml:/usr/local/hadoop/etc/hadoop/mapred-site.xml
       - ./src/config/yarn-site.xml:/usr/local/hadoop/etc/hadoop/yarn-site.xml
       - ./src/config/slaves:/usr/local/hadoop/etc/hadoop/slaves
-    command: /bootstrap.sh
+      - ./src/bootstrap.sh:/bootstrap.sh
+    entrypoint: wait-for -d hadoop-slave2:22 -c '/bootstrap.sh'
   slave1:
     image: daocloud.io/darebeat/hadoop
-    container_name: hadoop-slave2
+    container_name: hadoop-slave1
   slave2:
     image: daocloud.io/darebeat/hadoop
-    container_name: hadoop-slave1
+    container_name: hadoop-slave2
 
 networks:
   default:
