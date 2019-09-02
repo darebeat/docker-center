@@ -6,10 +6,11 @@
     </property>
     <property>
         <name>hadoop.tmp.dir</name>
-        <value>/usr/local/hadoop/tmp</value>
+        <value>file:/opt/hadoop/tmp</value>
     </property>
-     <property>
-         <name>fs.trash.interval</name>
-         <value>1440</value>
+    <property>
+      	<name>io,native.lib.available</name>
+      	<value>true</value>
     </property>
 </configuration>
+

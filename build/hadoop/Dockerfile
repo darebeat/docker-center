@@ -1,4 +1,4 @@
-FROM daocloud.io/darebeat/jdk8
+FROM daocloud.io/darebeat/base
 
 MAINTAINER darebeat<darebeat@126.com>
 
@@ -34,7 +34,6 @@ RUN mkdir -p $HADOOP_HOME/namenode && \
     mkdir -p $HADOOP_HOME/datanode && \
     mkdir -p $HADOOP_HOME/tmp && \
     mkdir $HADOOP_HOME/logs && \
-    mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/bootstrap.sh /bootstrap.sh && \
     mv /tmp/wordcount.sh ~/wordcount.sh && \
     mv /tmp/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh && \
@@ -42,6 +41,7 @@ RUN mkdir -p $HADOOP_HOME/namenode && \
     mv /tmp/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml && \
     mv /tmp/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml && \
     mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
+    mv /tmp/slaves $HADOOP_HOME/etc/hadoop/masters && \
     mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
     chmod +x /bootstrap.sh && \
     chmod +x ~/wordcount.sh && \
@@ -51,5 +51,7 @@ RUN mkdir -p $HADOOP_HOME/namenode && \
 
 # format namenode
 RUN $HADOOP_HOME/bin/hdfs namenode -format
+
+EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]

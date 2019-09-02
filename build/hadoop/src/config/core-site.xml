@@ -1,15 +1,11 @@
-<?xml version="1.0"?>
 <configuration>
+	<property>
+		<name>fs.defaultFS</name>
+		<value>hdfs://master:9000</value>
+	</property>
+
     <property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://hadoop-master:9000</value>
-    </property>
-    <property>
-        <name>hadoop.tmp.dir</name>
-        <value>file:/opt/hadoop/tmp</value>
-    </property>
-    <property>
-      	<name>io,native.lib.available</name>
-      	<value>true</value>
-    </property>
+	<name>hadoop.tmp.dir</name>
+		<value>file:/opt/hadoop/tmp</value>
+	</property>
 </configuration>
