@@ -3,14 +3,14 @@ FROM daocloud.io/darebeat/base
 MAINTAINER darebeat<darebeat@126.com>
 
 ARG JDK_VERSION=141
-ARG HADOOP_VERSION=2.7.2
+ARG HADOOP_VERSION=2.6.0-cdh5.14.0
 ARG HADOOP_HOME=/opt/hadoop
 
 
 WORKDIR /root
 
 # install hadoop
-RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
+RUN wget http://archive.cloudera.com/cdh5/cdh/5/hadoop-${HADOOP_VERSION}.tar.gz && \
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
     mv hadoop-${HADOOP_VERSION} $HADOOP_HOME && \
     rm hadoop-${HADOOP_VERSION}.tar.gz

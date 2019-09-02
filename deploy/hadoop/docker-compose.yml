@@ -8,13 +8,18 @@ services:
         ipv4_address: 172.20.0.2
         aliases:
           - hadoop-master
-    # volumes:
-    #   - ../data/:/data
-    #   - ./:/hadoop
+    volumes:
+      - ./src/config/hdfs-site.xml:${HADOOP_PATH:-/usr/local}/etc/hadoop/hdfs-site.xml
+      - ./src/config/core-site.xml:${HADOOP_PATH:-/usr/local}/etc/hadoop/core-site.xml
+      - ./src/config/mapred-site.xml:${HADOOP_PATH:-/usr/local}/etc/hadoop/mapred-site.xml
+      - ./src/config/yarn-site.xml:${HADOOP_PATH:-/usr/local}/etc/hadoop/yarn-site.xml
+      - ./src/config/masters:${HADOOP_PATH:-/usr/local}/etc/hadoop/masters
+      - ./src/config/slaves:${HADOOP_PATH:-/usr/local}/etc/hadoop/slaves
     extra_hosts:
       - "slave1:172.20.0.3"
       - "slave2:172.20.0.4"
     hostname: master
+    entrypoint: wait-for -d slave1:22,slave2:22 -c '/bootstrap.sh'
     environment:
       ROLE: master
 
