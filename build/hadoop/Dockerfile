@@ -4,7 +4,7 @@ MAINTAINER darebeat<darebeat@126.com>
 
 ARG JDK_VERSION=141
 ARG HADOOP_VERSION=2.7.2
-ARG HADOOP_HOME=/usr/local/hadoop
+ARG HADOOP_HOME=/opt/hadoop
 
 
 WORKDIR /root
@@ -30,6 +30,7 @@ ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 COPY src/config/* /tmp/
 
 RUN mkdir -p $HADOOP_HOME/namenode && \
+    mkdir -p $HADOOP_HOME/namesecondary && \
     mkdir -p $HADOOP_HOME/datanode && \
     mkdir -p $HADOOP_HOME/tmp && \
     mkdir $HADOOP_HOME/logs && \

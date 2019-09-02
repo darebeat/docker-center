@@ -6,6 +6,8 @@ ARG HIVE_VERSION=2.3.4
 ENV HIVE_HOME=/opt/hive
 ENV PATH=$PATH:$HIVE_HOME/bin:.
 
+WORKDIR /opt
+
 # 安装 Hive
 RUN wget http://mirrors.hust.edu.cn/apache/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz && \
     tar -xzvf apache-hive-${HIVE_VERSION}-bin.tar.gz -C /opt/ && \
@@ -20,3 +22,5 @@ RUN wget http://mirrors.hust.edu.cn/apache/hive/hive-${HIVE_VERSION}/apache-hive
 
 # 拷贝Hive配置文件
 COPY src/config/* $HIVE_HOME/conf/
+
+EXPOSE 9083 10000 10002
