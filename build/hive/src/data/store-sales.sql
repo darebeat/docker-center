@@ -1,5 +1,5 @@
-drop table store_sales;
-drop table store_sales_orc;
+drop table if exists store_sales;
+drop table if exists store_sales_orc;
 
 create table if not exists store_sales (
     ss_sold_date_sk           int,
@@ -28,7 +28,7 @@ create table if not exists store_sales (
 )
 row format delimited fields terminated by '|';
 
-load data local inpath '/opt/files/store_sales.txt' overwrite into table store_sales;
+load data local inpath 'store-sales.txt' overwrite into table store_sales;
 
 create table if not exists store_sales_orc like store_sales;
 alter table store_sales_orc set fileformat orc;
