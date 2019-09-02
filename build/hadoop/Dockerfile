@@ -11,7 +11,7 @@ WORKDIR /root
 
 # install hadoop
 RUN wget http://archive.cloudera.com/cdh5/cdh/5/hadoop-${HADOOP_VERSION}.tar.gz && \
-    tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
+    tar -xzf hadoop-${HADOOP_VERSION}.tar.gz && \
     mv hadoop-${HADOOP_VERSION} $HADOOP_HOME && \
     rm hadoop-${HADOOP_VERSION}.tar.gz
 
