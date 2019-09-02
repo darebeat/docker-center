@@ -19,6 +19,9 @@ services:
       - "slave1:172.20.0.3"
       - "slave2:172.20.0.4"
     hostname: master
+    ports:
+      - 8088:8088
+      - 50070:50070
     entrypoint: wait-for -d slave1:22,slave2:22 -c '/bootstrap.sh'
     environment:
       ROLE: master
