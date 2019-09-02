@@ -41,7 +41,7 @@ RUN mkdir -p $HADOOP_HOME/namenode && \
     mv /tmp/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml && \
     mv /tmp/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml && \
     mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
-    mv /tmp/slaves $HADOOP_HOME/etc/hadoop/masters && \
+    mv /tmp/masters $HADOOP_HOME/etc/hadoop/masters && \
     mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
     chmod +x /bootstrap.sh && \
     chmod +x ~/wordcount.sh && \
