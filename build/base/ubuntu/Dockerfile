@@ -17,6 +17,7 @@ RUN mv /tmp/sources.list /etc/apt/ \
     && chmod 700 ~/.ssh \
     && chmod 600 ~/.ssh/id_rsa \
     && chmod 644 ~/.ssh/authorized_keys \
+    && mkdir -p /var/run/sshd \
     && mv /tmp/config ~/.ssh \
     && mv /tmp/wait-for /usr/local/bin \
     && chmod +x /usr/local/bin/wait-for
