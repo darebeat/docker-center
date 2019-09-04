@@ -8,10 +8,11 @@ COPY src/config/* /tmp/
 RUN mv /tmp/sources.list /etc/apt/ \
     && apt-get update \
     && apt-get --no-install-recommends install -y apt-utils git vim wget iputils-ping netcat-traditional openssh-server openssh-client \
-    && rm -rf /var/lib/apt/lists/* && apt-get clean \
     && wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u${JDK_VERSION}-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u${JDK_VERSION}-linux-x64.tar.gz \
     && tar -xvzf jdk-8u${JDK_VERSION}-linux-x64.tar.gz -C /opt \
     && rm -rf jdk-8u${JDK_VERSION}-linux-x64.tar.gz \
+    && apt-get --no-install-recommends install -y python3 python3-pip scala \
+    && rm -rf /var/lib/apt/lists/* && apt-get clean \
     && ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
     && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
     && chmod 700 ~/.ssh \
