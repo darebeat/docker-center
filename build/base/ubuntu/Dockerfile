@@ -12,6 +12,7 @@ RUN mv /tmp/sources.list /etc/apt/ \
     && tar -xvzf jdk-8u${JDK_VERSION}-linux-x64.tar.gz -C /opt \
     && rm -rf jdk-8u${JDK_VERSION}-linux-x64.tar.gz \
     && apt-get --no-install-recommends install -y python3 python3-pip scala \
+    && ln -s $(which python3) /usr/bin/python \
     && rm -rf /var/lib/apt/lists/* && apt-get clean \
     && ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
     && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \

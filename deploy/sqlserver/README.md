@@ -24,4 +24,12 @@ GO
 sqlcmd -S 127.0.0.1,1433 -U sa -P Mssql0173! -Q "CREATE DATABASE test; CREATE TABLE test(id int, name varchar(10));"
 ```
 
+4. 修改SA密码
+
+```sh
+/opt/mssql-tools/bin/sqlcmd \
+   -S localhost -U SA -P Mssql0173! \
+   -Q 'ALTER LOGIN SA WITH PASSWORD="<YourNewStrong!Passw0rd>"'
+```
+
 4. [more information](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-overview?view=sql-server-2017)

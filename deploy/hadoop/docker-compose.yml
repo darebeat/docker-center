@@ -27,7 +27,7 @@ services:
       ROLE: master
 
   slave1:
-    image: daocloud.io/darebeat/hadoop
+    image: daocloud.io/darebeat/hive
     container_name: hadoop-slave1
     networks:
       cluster:
@@ -42,7 +42,7 @@ services:
       ROLE: slave
 
   slave2:
-    image: daocloud.io/darebeat/hadoop
+    image: daocloud.io/darebeat/hive
     container_name: hadoop-slave2
     networks:
       cluster:
