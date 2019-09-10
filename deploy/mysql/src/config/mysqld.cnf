@@ -22,7 +22,7 @@ init_connect='SET NAMES utf8mb4'
 # 1. 设置成0：表名按你写的SQL大小写存储，大写就大写小写就小写，比较时大小写敏感。
 # 2. 设置成1：表名转小写后存储到硬盘，比较时大小写不敏感。
 # 3. 设置成2：表名按你写的SQL大小写存储，大写就大写小写就小写，比较时统一转小写比较。
-lower_case_table_names = 2
+lower_case_table_names = 1
 
 # 最大连接数
 max_connections = 400
