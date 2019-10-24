@@ -1,14 +1,11 @@
 version: '2'
-
 services:
   mongodb:
+    image: mongo:3.2.16
     container_name: mongodb
-    image: mongo:3.0.14
-    command: mongod --noprealloc --smallfiles --dbpath /data/db --configsvr --noauth --port 27017
-    environment:
-      TERM: xterm
-    expose:
-         - "27017"
+    ports:
+        - 27017:27017
+    command: mongod --auth --dbpath /data/db --port 27017
 
 networks:
   default:
