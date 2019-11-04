@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  wordpress:
+    container_name: wordpress
+    image: wordpress:latest
+    ports:
+      - 10080:80
+    environment:
+      - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_DB_PASSWORD=mysql
+    external_links:
+      - mysql
+
+networks:
+  default:
+    external:
+      name: share
