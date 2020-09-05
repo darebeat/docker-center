@@ -1,0 +1,36 @@
+version: '2'
+services:
+  es-master:
+    image:  elasticsearch:6.4.3
+    container_name: es-master
+    restart: always
+    volumes:
+      - ./master/data:/usr/share/elasticsearch/data:rw
+      - ./master/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./master/logs:/user/share/elasticsearch/logs:rw
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  es-node1:
+    image:  elasticsearch:6.4.3
+    container_name: es-node1
+    restart: always
+    volumes:
+      - ./node1/data:/usr/share/elasticsearch/data:rw
+      - ./node1/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./node1/logs:/user/share/elasticsearch/logs:rw
+  es-node2:
+    image:  elasticsearch:6.4.3
+    container_name: es-node2
+    restart: always
+    volumes:
+      - ./node2/data:/usr/share/elasticsearch/data:rw
+      - ./node2/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./node2/logs:/user/share/elasticsearch/logs:rw
+  es-head:
+    image: tobias74/elasticsearch-head:6
+    container_name: es-head
+    restart: always
+    ports:
+      - "9100:9100"
