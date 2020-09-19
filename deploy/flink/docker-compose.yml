@@ -1,0 +1,20 @@
+version: "2"
+services:
+  flink-jobmanager:
+    image: melentye/flink:latest
+    ports:
+      - "8081:8081"
+    expose:
+      - "6123"
+    command: jobmanager
+
+  flink-taskmanager:
+    image: melentye/flink:latest
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - flink-jobmanager
+    links:
+      - flink-jobmanager
+    command: taskmanager

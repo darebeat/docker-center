@@ -1,0 +1,39 @@
+2019-10-29 22:39:39,198 INFO [localhost-startStop-1] [com.atlassian.confluence.lifecycle] contextInitialized Starting Confluence 6.4.3 [build 7402 based on commit hash 131c587a84e4ee088cb3d1cec7ecd765481c9c79] - synchrony version 1.0.0-release-confluence_6.1-4020a123
+2019-10-29 22:39:46,585 WARN [localhost-startStop-1] [com.atlassian.config.ApplicationConfig] setApplicationHome Application home does not exist. Creating directory: /var/atlassian/application-data/confluence/shared-home
+2019-10-29 22:39:46,615 INFO [localhost-startStop-1] [atlassian.confluence.cluster.DefaultClusterConfigurationHelper] lambda$populateExistingClusterSetupConfig$1 Populating setup configuration if running with Cluster mode...
+2019-10-29 22:39:46,628 WARN [localhost-startStop-1] [atlassian.confluence.cluster.DefaultClusterConfigurationHelper] lambda$populateExistingClusterSetupConfig$1 Could not find shared config file.
+2019-10-29 22:39:49,928 INFO [localhost-startStop-1] [atlassian.plugin.manager.DefaultPluginManager] earlyStartup Plugin system earlyStartup begun
+2019-10-29 22:39:50,611 WARN [localhost-startStop-1] [org.twdata.pkgscanner.ExportPackageListBuilder] logDuplicateWarning Package Scanner found duplicates for package 'javax.transaction.xa' with different versions. Files: jta-1.0.1B.jar and jboss-transaction-api_1.2_spec-1.0.1.Final.jar
+  '/opt/atlassian/confluence/webapps/../confluence/WEB-INF/lib/jta-1.0.1B.jar'
+  '/opt/atlassian/confluence/webapps/../confluence/WEB-INF/lib/jboss-transaction-api_1.2_spec-1.0.1.Final.jar'
+2019-10-29 22:39:50,613 WARN [localhost-startStop-1] [org.twdata.pkgscanner.ExportPackageListBuilder] logDuplicateWarning Package Scanner found duplicates for package 'javax.transaction' with different versions. Files: jta-1.0.1B.jar and jboss-transaction-api_1.2_spec-1.0.1.Final.jar
+  '/opt/atlassian/confluence/webapps/../confluence/WEB-INF/lib/jta-1.0.1B.jar'
+  '/opt/atlassian/confluence/webapps/../confluence/WEB-INF/lib/jboss-transaction-api_1.2_spec-1.0.1.Final.jar'
+2019-10-29 22:39:56,367 INFO [localhost-startStop-1] [atlassian.plugin.manager.DefaultPluginManager] logTime Plugin system earlyStartup ended
+2019-10-29 22:39:56,375 INFO [localhost-startStop-1] [atlassian.plugin.manager.DefaultPluginManager] lateStartup Plugin system lateStartup begun
+2019-10-29 22:39:58,205 INFO [localhost-startStop-1] [atlassian.plugin.manager.DefaultPluginManager] logTime Plugin system lateStartup ended
+2019-10-29 22:39:59,964 INFO [localhost-startStop-1] [com.atlassian.confluence.lifecycle] init Confluence is ready to serve
+2019-10-29 22:40:26,315 FATAL [localhost-startStop-3] [atlassian.spring.container.SpringContainerContext] getComponent Spring Application context has not been set
+2019-10-29 22:40:26,320 WARN [localhost-startStop-3] [atlassian.confluence.plugin.PluginFrameworkContextListener] contextDestroyed Failed to shut down plugin system during ServletContext shutdown: Spring Application context has not been set
+2019-10-29 22:40:26,359 INFO [localhost-startStop-3] [com.atlassian.confluence.lifecycle] contextDestroyed Stopping Confluence
+2019-10-29 22:40:26,473 INFO [localhost-startStop-3] [atlassian.plugin.manager.DefaultPluginManager] shutdown Preparing to shut down the plugin system
+2019-10-29 22:40:26,476 INFO [localhost-startStop-3] [atlassian.plugin.manager.DefaultPluginManager] shutdown Shutting down the plugin system
+2019-10-29 22:40:43,104 INFO [localhost-startStop-1] [com.atlassian.confluence.lifecycle] contextInitialized Starting Confluence 6.4.3 [build 7402 based on commit hash 131c587a84e4ee088cb3d1cec7ecd765481c9c79] - synchrony version 1.0.0-release-confluence_6.1-4020a123
+2019-10-29 22:40:51,378 INFO [localhost-startStop-1] [atlassian.confluence.cluster.DefaultClusterConfigurationHelper] lambda$populateExistingClusterSetupConfig$1 Populating setup configuration if running with Cluster mode...
+2019-10-29 22:40:51,384 WARN [localhost-startStop-1] [atlassian.confluence.cluster.DefaultClusterConfigurationHelper] lambda$populateExistingClusterSetupConfig$1 Could not find shared config file.
+2019-10-29 22:40:53,186 INFO [localhost-startStop-1] [atlassian.plugin.manager.DefaultPluginManager] earlyStartup Plugin system earlyStartup begun
+2019-10-29 22:40:53,928 WARN [localhost-startStop-1] [org.twdata.pkgscanner.ExportPackageListBuilder] logDuplicateWarning Package Scanner found duplicates for package 'javax.transaction.xa' with different versions. Files: jta-1.0.1B.jar and jboss-transaction-api_1.2_spec-1.0.1.Final.jar
+  '/opt/atlassian/confluence/webapps/../confluence/WEB-INF/lib/jta-1.0.1B.jar'
+  '/opt/atlassian/confluence/webapps/../confluence/WEB-INF/lib/jboss-transaction-api_1.2_spec-1.0.1.Final.jar'
+2019-10-29 22:40:53,929 WARN [localhost-startStop-1] [org.twdata.pkgscanner.ExportPackageListBuilder] logDuplicateWarning Package Scanner found duplicates for package 'javax.transaction' with different versions. Files: jta-1.0.1B.jar and jboss-transaction-api_1.2_spec-1.0.1.Final.jar
+  '/opt/atlassian/confluence/webapps/../confluence/WEB-INF/lib/jta-1.0.1B.jar'
+  '/opt/atlassian/confluence/webapps/../confluence/WEB-INF/lib/jboss-transaction-api_1.2_spec-1.0.1.Final.jar'
+2019-10-29 22:40:58,844 INFO [localhost-startStop-1] [atlassian.plugin.manager.DefaultPluginManager] logTime Plugin system earlyStartup ended
+2019-10-29 22:40:58,850 INFO [localhost-startStop-1] [atlassian.plugin.manager.DefaultPluginManager] lateStartup Plugin system lateStartup begun
+2019-10-29 22:41:01,097 INFO [localhost-startStop-1] [atlassian.plugin.manager.DefaultPluginManager] logTime Plugin system lateStartup ended
+2019-10-29 22:41:02,598 INFO [localhost-startStop-1] [com.atlassian.confluence.lifecycle] init Confluence is ready to serve
+2019-10-29 22:41:07,702 FATAL [localhost-startStop-3] [atlassian.spring.container.SpringContainerContext] getComponent Spring Application context has not been set
+2019-10-29 22:41:07,734 WARN [localhost-startStop-3] [atlassian.confluence.plugin.PluginFrameworkContextListener] contextDestroyed Failed to shut down plugin system during ServletContext shutdown: Spring Application context has not been set
+2019-10-29 22:41:07,739 INFO [localhost-startStop-3] [com.atlassian.confluence.lifecycle] contextDestroyed Stopping Confluence
+2019-10-29 22:41:07,829 INFO [localhost-startStop-3] [atlassian.plugin.manager.DefaultPluginManager] shutdown Preparing to shut down the plugin system
+2019-10-29 22:41:07,834 INFO [localhost-startStop-3] [atlassian.plugin.manager.DefaultPluginManager] shutdown Shutting down the plugin system

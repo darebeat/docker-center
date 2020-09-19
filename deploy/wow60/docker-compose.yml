@@ -1,0 +1,35 @@
+version: "2"
+services:
+  wow60-database:
+    image: registry.cn-shenzhen.aliyuncs.com/olivercj/wow60-database:0.1
+    container_name: wow60-database
+    command:
+    - /run.sh
+    ports:
+    - 3306:3306/tcp
+    networks:
+    - wow60-net
+  wow60-realmd:
+    image: registry.cn-shenzhen.aliyuncs.com/olivercj/wow60-realmd:0.2
+    command:
+    - /data/run.sh
+    ports:
+    - 3724:3724/tcp
+    depends_on:
+    - wow60-database
+    networks:
+    - wow60-net
+  wow60-world-0:
+    image: registry.cn-shenzhen.aliyuncs.com/olivercj/wow60-world:0.2
+    command:
+    - /data/run.sh
+    ports:
+    - 8085:8085/tcp
+    depends_on:
+    - wow60-realmd
+    networks:
+    - wow60-net
+
+networks:
+  wow60-net:
+    external: true

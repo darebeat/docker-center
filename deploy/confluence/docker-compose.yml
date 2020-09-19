@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  confluence:
+    image: atlassian/confluence-server:6.4.3-alpine
+    expose:
+      - 8090
+      - 8091
+    networks:
+      - share
+    labels:
+      - "share.enable=true"
+      - "share.port=8090"
+      - "share.frontend.rule=Host:${DOMAIN}"
+      - "share.frontend.entryPoints=http,https"
+      # - "share.frontend.auth.basic=${BASIC_AUTH}"
+      # - "share.frontend.auth.basic.removeHeader=true"
+    volumes:
+      - ./data:/var/atlassian/application-data/confluence
+      - ./mysql-connector-java-5.1.22.jar:/opt/atlassian/confluence/confluence/WEB-INF/lib/mysql-connector-java-5.1.22.jar
+
+networks:
+  share:
+    external: true
