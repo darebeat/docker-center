@@ -1,0 +1,45 @@
+version: "3"
+services:
+  jobmanager:
+    image: flink:${FLINK_VERSION:-1.11.0-scala_2.11}
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    container_name: flink-jobmanager
+    hostname: jobmanager
+    networks:
+      flink:
+        ipv4_address: 172.18.0.2
+        aliases:
+          - jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+    volumes:
+      - ./artifacts:/opt/flink/usrlib
+
+  taskmanager:
+    image: flink:${FLINK_VERSION:-1.11.0-scala_2.11}
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    container_name: flink-taskmanager
+    hostname: taskmanager
+    networks:
+      flink:
+        ipv4_address: 172.18.0.3
+        aliases:
+          - taskmanager
+    scale: 1
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+    volumes:
+      - ./artifacts:/opt/flink/usrlib
+
+networks:
+  flink:
+    external: true

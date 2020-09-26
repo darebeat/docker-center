@@ -1,0 +1,38 @@
+version: "2"
+services:
+  flink-jobmanager:
+    image: melentye/flink:latest
+    ports:
+      - "8081:8081"
+    expose:
+      - "6123"
+    command: jobmanager
+    container_name: flink-jobmanager
+    hostname: jobmanager
+    networks:
+      flink:
+        ipv4_address: 172.18.0.2
+        aliases:
+          - jobmanager
+
+  flink-taskmanager:
+    image: melentye/flink:latest
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - flink-jobmanager
+    links:
+      - flink-jobmanager
+    command: taskmanager
+    container_name: flink-taskmanager
+    hostname: taskmanager
+    networks:
+      flink:
+        ipv4_address: 172.18.0.3
+        aliases:
+          - taskmanager
+
+networks:
+  flink:
+    external: true

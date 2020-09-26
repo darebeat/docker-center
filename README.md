@@ -26,8 +26,23 @@ Some docker instance deploy daily.
 cat << eof > /etc/docker/daemon.json
 {
   "registry-mirrors": [
-    "https://ya4ouoma.mirror.aliyuncs.com"
+    "https://7zcq3x2s.mirror.aliyuncs.com",
+    "https://docker.mirrors.ustc.edu.cn"
   ]
 }
 eof
+```
+
+#### create docker share networks
+
+```sh
+docker network create --driver=bridge --subnet=172.18.0.0/16 demo
+docker network ls 
+docker network inspect demo
+```
+
+```xml
+networks:
+ demo:
+  external: true
 ```
