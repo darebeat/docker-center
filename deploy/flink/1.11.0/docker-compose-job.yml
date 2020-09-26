@@ -1,10 +1,17 @@
-version: "2.2"
+version: "3"
 services:
   jobmanager:
     image: flink:${FLINK_VERSION:-1.11.0-scala_2.11}
     ports:
       - "8081:8081"
     command: standalone-job --job-classname com.job.ClassName [--job-id <job id>] [--fromSavepoint /path/to/savepoint [--allowNonRestoredState]] [job arguments]
+    container_name: flink-jobmanager
+    hostname: jobmanager
+    networks:
+      flink:
+        ipv4_address: 172.18.0.2
+        aliases:
+          - jobmanager
     volumes:
       - ./artifacts:/opt/flink/usrlib
     environment:
@@ -18,6 +25,13 @@ services:
     depends_on:
       - jobmanager
     command: taskmanager
+    container_name: flink-taskmanager
+    hostname: taskmanager
+    networks:
+      flink:
+        ipv4_address: 172.18.0.2
+        aliases:
+          - taskmanager
     scale: 1
     volumes:
       - ./artifacts:/opt/flink/usrlib
@@ -27,3 +41,17 @@ services:
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2
         parallelism.default: 2
+
+  edge:
+    image: netcat # 需要自己手动build
+    container_name: flink-edge
+    hostname: edge
+    networks:
+      flink:
+        ipv4_address: 172.18.0.100
+        aliases:
+          - edge
+
+networks:
+  flink:
+    external: true

@@ -40,6 +40,16 @@ services:
     volumes:
       - ./artifacts:/opt/flink/usrlib
 
+  edge:
+    image: netcat # 需要自己手动build
+    container_name: flink-edge
+    hostname: edge
+    networks:
+      flink:
+        ipv4_address: 172.18.0.100
+        aliases:
+          - edge
+
 networks:
   flink:
     external: true

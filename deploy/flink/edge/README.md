@@ -1,5 +1,5 @@
 # edge
 
 ```sh
-docker build -f Dockerfile -t netcat
+docker build -f Dockerfile -t netcat .
 ```
