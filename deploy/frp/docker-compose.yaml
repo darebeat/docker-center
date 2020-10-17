@@ -1,9 +1,0 @@
-# export FRP_NODE=frps && docker-compose config
-version: "3"
-services:
-  frp:
-    image: darebeat/frp:${FRP_VERSION:-0.34.1}
-    command: ${FRP_NODE:-frpc}
-    container_name: ${FRP_NODE:-frpc}-${FRP_VERSION}
-    volumes:
-      - ./conf/${FRP_NODE:-frpc}.ini:/opt/frp/conf/${FRP_NODE:-frpc}.ini

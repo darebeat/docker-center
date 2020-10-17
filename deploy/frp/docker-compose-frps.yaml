@@ -1,0 +1,14 @@
+# export FRP_NODE=frps && docker-compose config
+version: "3"
+services:
+  frp:
+    image: darebeat/frp:${FRP_VERSION:-0.34.1}
+    command: ${FRP_NODE:-frps}
+    container_name: ${FRP_NODE:-frps}-${FRP_VERSION}
+    ports:
+      - "17000:17000"
+      - "27500:17500"
+      - "10022:10022" #用于ssh连接
+      - "10080:10080" #用于开放给外网访问
+    volumes:
+      - ./conf/${FRP_NODE:-frps}.ini:/opt/frp/conf/${FRP_NODE:-frps}.ini

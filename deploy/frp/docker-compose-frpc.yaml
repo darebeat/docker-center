@@ -1,0 +1,12 @@
+# export FRP_NODE=frpc && docker-compose config
+version: "3"
+services:
+  frp:
+    image: darebeat/frp:${FRP_VERSION:-0.34.1}
+    command: ${FRP_NODE:-frpc}
+    container_name: ${FRP_NODE:-frpc}-${FRP_VERSION}
+    # 容器中的network driver默认为bridge,如果保持默认,使用web服务需要导出端口号,使用sshd服务需要将local_ip设置为宿主机的内网IP
+    # 如果把网络模式设置为host,就和主机保持在同一网络
+    network_mode: host 
+    volumes:
+      - ./conf/${FRP_NODE:-frpc}.ini:/opt/frp/conf/${FRP_NODE:-frpc}.ini

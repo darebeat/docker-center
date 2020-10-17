@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 FRP_COMPONENT=$1
 shift
