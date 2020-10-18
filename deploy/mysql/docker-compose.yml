@@ -2,10 +2,17 @@ version: '3'
 services:
   mysql:
     image: mysql:5.7
-    ports:
-      - "3307:3306"
     container_name: mysql
     restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.2
+        aliases:
+          - frpc
+    # extra_hosts:
+    #   - "jobmanager:172.10.0.2"
+    ports:
+      - "3307:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=mysql
     volumes:
@@ -14,6 +21,5 @@ services:
     tty: true
 
 networks:
-  default:
-    external:
-      name: share
+  deploy:
+    external: true
