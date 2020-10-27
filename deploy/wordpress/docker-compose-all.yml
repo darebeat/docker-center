@@ -3,15 +3,13 @@ version: '3'
 services:
   db:
     container_name: mysql
-    image: mysql:5.7
+    image: mysql
     restart: always
     networks:
       deploy:
         ipv4_address: 172.10.0.20
         aliases:
           - mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: wordpress
     environment:
       - MYSQL_ROOT_PASSWORD=wordpress
       - MYSQL_USER=wordpress
@@ -20,7 +18,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./my.cnf:/etc/my.cnf
-      - db_data:/var/lib/mysql
+      - ./db_data:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
