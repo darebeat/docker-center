@@ -8,9 +8,7 @@ services:
       deploy:
         ipv4_address: 172.10.0.2
         aliases:
-          - frpc
-    # extra_hosts:
-    #   - "jobmanager:172.10.0.2"
+          - mysql
     ports:
       - "3307:3306"
     environment:
