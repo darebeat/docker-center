@@ -17,7 +17,7 @@ services:
       - MYSQL_DATABASE=wordpress
       - TZ=Asia/Shanghai
     volumes:
-      - ./my.cnf:/etc/my.cnf
+      - ./config/my.cnf:/etc/my.cnf
       - ./db_data:/var/lib/mysql
 
   wordpress:
@@ -36,6 +36,8 @@ services:
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_PASSWORD: wordpress
+    volumes:
+      - ./config/uploads.ini:/usr/local/etc/php/conf.d
 
 networks:
   deploy:
