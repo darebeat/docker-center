@@ -25,7 +25,7 @@ services:
       - ./chevereto_images:/var/www/html/images:rw
       - ./conf/upload.ini:/usr/local/etc/php/conf.d/upload.ini:ro
     ports:
-      - 10104:80
+      - 10103:80
 
 networks:
   deploy:
