@@ -1,28 +1,28 @@
 version: '3'
 services:
-  wordpress:
-    container_name: wordpress
+  wordpress-hyj:
+    container_name: wordpress-hyj
     image: wordpress:latest
     ports:
-      - "10102:80"
+      - "10104:80"
     restart: always
     networks:
       deploy:
-        ipv4_address: 172.10.0.102
+        ipv4_address: 172.10.0.104
         aliases:
-          - wordpress
+          - wordpress-hyj
     extra_hosts:
       - "mysql:172.10.0.101"
     environment:
       - WORDPRESS_DB_HOST=mysql:3306
-      - WORDPRESS_DB_USER=darebeat
-      - WORDPRESS_DB_PASSWORD=darebeat0755
-      - WORDPRESS_DB_NAME=darebeat
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress0755
+      - WORDPRESS_DB_NAME=wordpress
     external_links:
       - mysql
     volumes:
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
-      - ./html:/var/www/html:rw
+      - ./html-hyj:/var/www/html:rw
 
 networks:
   deploy:
