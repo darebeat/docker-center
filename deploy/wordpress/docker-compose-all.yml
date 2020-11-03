@@ -40,6 +40,7 @@ services:
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=wordpress0755
       - WORDPRESS_DB_NAME=wordpress
+      - TZ=Asia/Shanghai
     volumes:
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
       - ./html-all:/var/www/html:rw
