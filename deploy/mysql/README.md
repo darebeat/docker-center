@@ -15,4 +15,11 @@ grant all privileges on test.* to test;
 
 -- 刷新
 flush privileges;
+
+-- 备份数据库
+mysqldump -u test -p test > test.sql
+
+-- 还原数据库
+use test;
+source $(pwd)/test.sql
 ```

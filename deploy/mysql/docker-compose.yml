@@ -19,7 +19,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./db:/var/lib/mysql:rw
-      - ./src/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf:ro
+      - ./src/config/mysqld.cnf::/etc/my.cnf:ro
     tty: true
 
 networks:
