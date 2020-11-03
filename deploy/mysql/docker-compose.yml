@@ -6,16 +6,20 @@ services:
     restart: always
     networks:
       deploy:
-        ipv4_address: 172.10.0.2
+        ipv4_address: 172.10.0.101
         aliases:
           - mysql
     ports:
-      - "3307:3306"
+      - "3310:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test0755
+      - MYSQL_DATABASE=test
+      - TZ=Asia/Shanghai
     volumes:
-      - "~/data/mysql:/var/lib/mysql"
-      - "./src/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf"
+      - ./db:/var/lib/mysql:rw
+      - ./src/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
     tty: true
 
 networks:

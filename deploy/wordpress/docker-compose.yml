@@ -1,18 +1,35 @@
-version: '3'
+# create database wordpress;
+# create user wordpress@'%' identified by 'wordpress0755';
+# grant all privileges on wordpress.* to wordpress;
+# flush privileges;
 
+version: '3'
 services:
   wordpress:
     container_name: wordpress
     image: wordpress:latest
     ports:
-      - 10080:80
+      - "8000:80"
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.102
+        aliases:
+          - wordpress
+    extra_hosts:
+      - "mysql:172.10.0.101"
     environment:
-      - WORDPRESS_DB_HOST=mysql
-      - WORDPRESS_DB_PASSWORD=mysql
+      - WORDPRESS_DB_HOST=mysql:3306
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress0755
+      - WORDPRESS_DB_NAME=wordpress
     external_links:
       - mysql
+    volumes:
+      - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./html:/var/www/html
 
 networks:
-  default:
-    external:
-      name: share
+  deploy:
+    external: true
+

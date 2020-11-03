@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  chevereto:
+    image: nmtan/chevereto
+    container_name: chevereto
+    hostname: chevereto
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.103
+        aliases:
+          - chevereto
+    extra_hosts:
+      - "mysql:172.10.0.101"
+    environment:
+      CHEVERETO_DB_HOST: mysql
+      CHEVERETO_DB_USERNAME: chevereto
+      CHEVERETO_DB_PASSWORD: chevereto0755
+      CHEVERETO_DB_NAME: chevereto
+      CHEVERETO_DB_PREFIX: ctv_
+    external_links:
+      - mysql
+    volumes:
+      - ./chevereto_images:/var/www/html/images:rw
+      - ./conf/upload.ini:/usr/local/etc/php/conf.d/upload.ini:ro
+    ports:
+      - 10104:80
+
+networks:
+  deploy:
+    external: true
