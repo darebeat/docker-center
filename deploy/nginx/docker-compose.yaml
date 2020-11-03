@@ -1,0 +1,22 @@
+version: '3'
+services:
+  chevereto:
+    image: nginx:alpine
+    container_name: nginx
+    hostname: nginx
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.199
+        aliases:
+          - nginx
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./conf:/etc/nginx/conf.d
+    ports:
+      - 10104:80
+
+networks:
+  deploy:
+    external: true
