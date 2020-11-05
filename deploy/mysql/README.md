@@ -1,5 +1,7 @@
 # README
 
+## mysql 授权
+
 ```sql
 -- 创建数据库
 create database test;
@@ -22,4 +24,15 @@ mysqldump -u test -p test > test.sql
 -- 还原数据库
 use test;
 source $(pwd)/test.sql
+```
+
+## 环境变量
+
+```sh
+cat >> .env_mysql << EOF
+MYSQL_ROOT_PASSWORD=<your root pass>
+MYSQL_USER=<custom your user>
+MYSQL_PASSWORD=<custom your pass>
+MYSQL_DATABASE=<custom your database>
+EOF
 ```

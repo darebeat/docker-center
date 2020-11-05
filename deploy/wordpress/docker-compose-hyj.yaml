@@ -13,11 +13,9 @@ services:
           - wordpress-hyj
     extra_hosts:
       - "mysql:172.10.0.101"
+    env_file:
+      - .env_wp_all
     environment:
-      - WORDPRESS_DB_HOST=mysql:3306
-      - WORDPRESS_DB_USER=wordpress
-      - WORDPRESS_DB_PASSWORD=wordpress0755
-      - WORDPRESS_DB_NAME=wordpress
       - TZ=Asia/Shanghai
     external_links:
       - mysql

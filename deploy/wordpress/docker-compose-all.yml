@@ -1,5 +1,4 @@
 version: '3'
-
 services:
   db:
     container_name: mysql
@@ -12,11 +11,9 @@ services:
         ipv4_address: 172.10.0.20
         aliases:
           - mysql
+    env_file:
+      - .env_mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=wordpress
-      - MYSQL_USER=wordpress
-      - MYSQL_PASSWORD=wordpress0755
-      - MYSQL_DATABASE=wordpress
       - TZ=Asia/Shanghai
     volumes:
       - ./config/my.cnf:/etc/my.cnf
@@ -35,11 +32,9 @@ services:
         ipv4_address: 172.10.0.21
         aliases:
           - wordpress
+    env_file:
+      - .env_wp_all
     environment:
-      - WORDPRESS_DB_HOST=db:3306
-      - WORDPRESS_DB_USER=wordpress
-      - WORDPRESS_DB_PASSWORD=wordpress0755
-      - WORDPRESS_DB_NAME=wordpress
       - TZ=Asia/Shanghai
     volumes:
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro

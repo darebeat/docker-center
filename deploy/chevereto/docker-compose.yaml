@@ -12,12 +12,9 @@ services:
           - chevereto
     extra_hosts:
       - "mysql:172.10.0.101"
+    env_file:
+      - .env
     environment:
-      - CHEVERETO_DB_HOST=mysql
-      - CHEVERETO_DB_USERNAME=chevereto
-      - CHEVERETO_DB_PASSWORD=chevereto0755
-      - CHEVERETO_DB_NAME=chevereto
-      - CHEVERETO_DB_PREFIX=ctv_
       - TZ=Asia/Shanghai
     external_links:
       - mysql

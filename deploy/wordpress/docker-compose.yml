@@ -13,11 +13,9 @@ services:
           - wordpress
     extra_hosts:
       - "mysql:172.10.0.101"
+    env_file:
+      - .env_wp_dt
     environment:
-      - WORDPRESS_DB_HOST=mysql:3306
-      - WORDPRESS_DB_USER=darebeat
-      - WORDPRESS_DB_PASSWORD=darebeat0755
-      - WORDPRESS_DB_NAME=darebeat
       - TZ=Asia/Shanghai
     external_links:
       - mysql
