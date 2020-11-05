@@ -26,3 +26,19 @@ WORDPRESS_DB_PASSWORD=<wordpress pass>
 WORDPRESS_DB_NAME=<wordpress database>
 EOF
 ```
+
+## 博客搬家
+
++ 替换域名
+
+```sh
+OLD_DOMAIN=127.0.0.1:8080
+NEW_DOMAIN=blog.darebeat.cn:8080
+
+mysql -uroot -p -e "
+UPDATE wp_options SET option_value = REPLACE(option_value,'${OLD_DOMAIN}','${NEW_DOMAIN}');
+UPDATE wp_posts SET post_content = replace(post_content,'${OLD_DOMAIN}','${NEW_DOMAIN}')
+, post_excerpt= replace(post_excerpt,'${OLD_DOMAIN}','${NEW_DOMAIN}');
+, guid= replace(guid, '${OLD_DOMAIN}','${NEW_DOMAIN}');
+"
+```
