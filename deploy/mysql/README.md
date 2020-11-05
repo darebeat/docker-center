@@ -9,7 +9,7 @@ create database test;
 create user test@'%' identified by 'test0755';
 
 -- 修改用户密码
--- grant all privileges on test.* to test@% identified by 'chpass';  
+alter user 'test'@'%' identified by '123';  
 
 -- 授予用户test管理test的全部权限
 -- grant select,insert,update,delete
