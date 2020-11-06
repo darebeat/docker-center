@@ -19,7 +19,8 @@ services:
     external_links:
       - mysql
     volumes:
-      - ./html:/var/www/html/html:rw
+      - ./chevereto_images:/var/www/html/images:rw
+      - ./system_images:/var/www/html/content/images:rw
       - ./conf/upload.ini:/usr/local/etc/php/conf.d/upload.ini:ro
     ports:
       - 10103:80
