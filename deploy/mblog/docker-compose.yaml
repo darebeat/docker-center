@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mblog:
+    image: langhsu/mblog:latest
+    container_name: mblog
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.30
+        aliases:
+          - mblog
+    extra_hosts:
+      - "mysql:172.10.0.101"
+    working_dir: /app/mblog
+    environment:
+      TZ: Asia/Shanghai
+    env_file:
+      - .env
+    # -Dspring.config.location=/app/mblog/application-mysql.yaml
+    command: 
+      - bash
+      - -c
+      - |
+        java -jar /app/mblog/mblog-latest.jar
+        -Dspring.datasource.url=${spring_datasource_url}
+        -Dspring.datasource.username=${spring_datasource_username}
+        -Dspring.datasource.password=${spring_datasource_password}
+    external_links:
+      - mysql
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/mblog/storage:rw
+      - ./logs:/app/mblog/logs:rw
+    restart: always
+
+networks:
+  deploy:
+    external: true
