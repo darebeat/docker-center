@@ -1,11 +1,11 @@
 version: '3'
 services:
   mblog:
-    image: langhsu/mblog:latest
+    image: darebeat/mblog:latest
     container_name: mblog
     networks:
       deploy:
-        ipv4_address: 172.10.0.30
+        ipv4_address: 172.10.0.104
         aliases:
           - mblog
     extra_hosts:
@@ -16,7 +16,7 @@ services:
     env_file:
       - .env
     # -Dspring.config.location=/app/mblog/application-mysql.yaml
-    command: 
+    command:
       - bash
       - -c
       - |
@@ -27,7 +27,7 @@ services:
     external_links:
       - mysql
     ports:
-      - "8080:8080"
+      - "10104:8080"
     volumes:
       - ./data:/app/mblog/storage:rw
       - ./logs:/app/mblog/logs:rw
