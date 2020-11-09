@@ -21,7 +21,7 @@ services:
       - mysql
     volumes:
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
-      - ./html-dt:/var/www/html:rw
+      - ./html-dt/wp-content:/var/www/html/wp-content:rw
 
 networks:
   deploy:

@@ -40,7 +40,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
-      - ./html-all:/var/www/html:rw
+      - ./html-all/wp-content:/var/www/html/wp-content:rw
 
 networks:
   deploy:
