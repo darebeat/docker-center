@@ -6,38 +6,38 @@ ARG=${1:-renew}
 
 if [ "${ARG}" == 'certonly' ]; then
 
-echo """docker run -it --rm -v ${CURR_DIR}/certs:/etc/letsencrypt certbot/certbot \\
+echo """docker run -it --rm -v ${CURR_DIR}/conf/certs:/etc/letsencrypt certbot/certbot \\
   certonly --verbose \\
     --noninteractive \\
     --standalone \\
     --agree-tos \\
     -m darebeat@126.com \\
-    -d www.darebeat.cn"""
+    -d darebeat.cn"""
 
-docker run -it --rm -v ${CURR_DIR}/certs:/etc/letsencrypt certbot/certbot \
+docker run -it --rm -v ${CURR_DIR}/conf/certs:/etc/letsencrypt certbot/certbot \
   certonly --verbose \
     --noninteractive \
     --standalone \
     --agree-tos \
     -m darebeat@126.com \
-    -d www.darebeat.cn
+    -d darebeat.cn
 elif [ "${ARG}" == 'renew' ]; then
 
-echo """docker run -it --rm -v ${CURR_DIR}/certs:/etc/letsencrypt certbot/certbot \\
+echo """docker run -it --rm -v ${CURR_DIR}/conf/certs:/etc/letsencrypt certbot/certbot \\
   renew --verbose \\
     --noninteractive \\
     --standalone \\
     --agree-tos \\
     -m darebeat@126.com \\
-    -d www.darebeat.cn"""
+    -d darebeat.cn"""
 
-docker run -it --rm -v ${CURR_DIR}/certs:/etc/letsencrypt certbot/certbot \
+docker run -it --rm -v ${CURR_DIR}/conf/certs:/etc/letsencrypt certbot/certbot \
   renew --verbose \
     --noninteractive \
     --standalone \
     --agree-tos \
     -m darebeat@126.com \
-    -d www.darebeat.cn
+    -d darebeat.cn
 else
   echo "$@"
 fi
