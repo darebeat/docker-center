@@ -24,6 +24,6 @@ darebeat/certbot renew
   --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy add" \
   --manual-cleanup-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy clean" >> ${CURR_DIR}/renew.log 2>&1
 
-scp -r ${CURR_DIR}/etc/darebeat.cn txy:/root/projects/docker-center/deploy/nginx/conf/certs >> ${CURR_DIR}/renew.log
+scp -r ${CURR_DIR}/etc txy:/root/projects/docker-center/deploy/nginx/conf/certs >> ${CURR_DIR}/renew.log
 
 echo "-----END" `date +"%Y-%m-%d %H:%M:%S"`"-----"  >> ${CURR_DIR}/renew.log
