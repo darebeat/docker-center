@@ -30,7 +30,7 @@ class HwyDns:
 
         if len(domain_parts) > 2:
             dirpath = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-            domainfile = dirpath + '/domain.ini'
+            domainfile = dirpath + '/domains'
             domainarr = []
             with open(domainfile) as f:
                 for line in f:
@@ -51,7 +51,7 @@ class HwyDns:
         self.__request('POST', '/v2/zones/%s/recordsets' % (zone_id), {
             'name'      : '%s.%s.' % (rr, domain),
             'type'      : _type,
-            'records'   : [ '"'+'" "'.join(value.split(" "))+'"' ] # [ "\"%s\"" % (value) ]
+            'records'   : value # [ "\"%s\"" % (value) ] # [ '"'+'" "'.join(value.split(" "))+'"' ] #
         })
 
     # @example hwydns.delete_domain_record("example.com", "_acme-challenge", "TXT")
@@ -91,6 +91,14 @@ class HwyDns:
             return record['id'] if record else None
         except Exception as e:
             print('hwydns#get_domain_recordset_id raise: ' + str(e))
+            return None
+
+    def get_domain_recordset_txt(self, domain, rr, _type = 'TXT'):
+        try:
+            record = self.get_domain_record(domain, rr, _type)
+            return record['records'] if record else None
+        except Exception as e:
+            print('hwydns#get_domain_recordset_txt raise: ' + str(e))
             return None
 
     def get_domain_zone_id(self, domain):
@@ -225,7 +233,13 @@ if __name__ == '__main__':
     hwydns = HwyDns(api_key, api_secret)
 
     if 'add' == action:
-        hwydns.add_domain_record(main_domain, subdomain, certbot_validation)
+        _certbot_validation = []
+        exists_rs = hwydns.get_domain_recordset_txt(main_domain, subdomain, "TXT")
+        if exists_rs:
+            _certbot_validation = exists_rs
+            hwydns.delete_domain_record(main_domain, subdomain)
+        _certbot_validation.append(certbot_validation)
+        hwydns.add_domain_record(main_domain, subdomain, _certbot_validation)
     elif 'clean' == action:
         hwydns.delete_domain_record(main_domain, subdomain)
 

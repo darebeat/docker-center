@@ -101,7 +101,7 @@ class Cns:
  
         if len(domain_parts) > 2:
             dirpath = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-            domainfile = dirpath + "/domain.ini"
+            domainfile = dirpath + "/domains"
             domainarr = []
             with open(domainfile) as f:
                 for line in f:
