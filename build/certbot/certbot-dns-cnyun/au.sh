@@ -109,6 +109,7 @@ case $plang in
   
 esac
 
+# python python-version/hwydns.py add $CERTBOT_DOMAIN "_acme-challenge" $CERTBOT_VALIDATION $HWY_KEY $HWY_TOKEN
 $cmd $dnsapi $paction $CERTBOT_DOMAIN "_acme-challenge" $CERTBOT_VALIDATION $key $token >>"/var/log/certd.log"
 
 if [[ "$paction" == "add" ]]; then

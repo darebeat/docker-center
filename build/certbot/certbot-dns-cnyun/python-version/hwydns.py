@@ -18,7 +18,7 @@ else:
     import urllib.parse as urllib
 
 class HwyDns:
-    __endpoint = 'dns.cn-southwest-2.myhuaweicloud.com'
+    __endpoint = 'dns.myhuaweicloud.com'
 
     def __init__(self, access_key_id, secret_access_key):
         self.access_key_id = access_key_id
@@ -51,7 +51,7 @@ class HwyDns:
         self.__request('POST', '/v2/zones/%s/recordsets' % (zone_id), {
             'name'      : '%s.%s.' % (rr, domain),
             'type'      : _type,
-            'records'   : [ "\"%s\"" % (value) ]
+            'records'   : [ '"'+'" "'.join(value.split(" "))+'"' ] # [ "\"%s\"" % (value) ]
         })
 
     # @example hwydns.delete_domain_record("example.com", "_acme-challenge", "TXT")
@@ -210,6 +210,7 @@ class HwyDns:
         return sha256.hexdigest()
 
 if __name__ == '__main__':
+
     print('开始调用华为云 DNS API')
     print('-'.join(sys.argv))
 
