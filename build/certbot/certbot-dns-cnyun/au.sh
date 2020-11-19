@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #ywdblog@gmail.com 欢迎关注我的书《深入浅出HTTPS：从原理到实战》
 
