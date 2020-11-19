@@ -238,7 +238,8 @@ if __name__ == '__main__':
         if exists_rs:
             _certbot_validation = exists_rs
             hwydns.delete_domain_record(main_domain, subdomain)
-        _certbot_validation.append(certbot_validation)
+        _certbot_validation.append('"'+certbot_validation+'"')
+        _certbot_validation = list(set(_certbot_validation))
         hwydns.add_domain_record(main_domain, subdomain, _certbot_validation)
     elif 'clean' == action:
         hwydns.delete_domain_record(main_domain, subdomain)
