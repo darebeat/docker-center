@@ -1,1 +1,6 @@
 dnspod.conf
+.env*
+*.log
+etc
+lib
+log
