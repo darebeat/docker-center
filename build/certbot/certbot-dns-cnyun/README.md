@@ -1,3 +1,5 @@
+[Fork From](https://github.com/ywdblog/certbot-letencrypt-wildcardcertificates-alydns-au.git)
+
 ### 功能
 
 使用 certbot 工具，为不能自动给 letencrypt 通配符证书自动续期（renew）而烦恼吗？这个工具能够帮忙！
@@ -37,12 +39,22 @@ certbot 提供了一个 hook，可以编写一个 Shell 脚本，让脚本调用
 
 根据自己服务器环境和域名服务商选择任意一个 hook shell（包含相应参数），具体使用见下面。
 
-2：申请证书
+2：下载安装certbot-auto
+
+```sh
+mkdir -p /opt/certbot
+cd /opt/certbot
+wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+ln -s /opt/certbot/certbot-auto /usr/bin/certbot-auto
+```
+
+3：申请证书
 
 测试是否有错误：
 
 ```sh
-./certbot-auto certonly  \
+certbot-auto certonly  \
   -d *.example.com \
   --manual --preferred-challenges dns \
   --dry-run  \
@@ -68,7 +80,7 @@ certbot 提供了一个 hook，可以编写一个 Shell 脚本，让脚本调用
 
 ```sh
 # 实际申请
-./certbot-auto certonly  \
+certbot-auto certonly  \
   -d *.example.com \
   --manual --preferred-challenges dns \
   --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh aly add" \
@@ -88,7 +100,7 @@ certbot 提供了一个 hook，可以编写一个 Shell 脚本，让脚本调用
 如果你想为多个域名申请通配符证书（合并在一张证书中，也叫做 **SAN 通配符证书**），直接输入多个 -d 参数即可，比如：
 
 ```sh
-./certbot-auto certonly \
+certbot-auto certonly \
   -d *.example.com \
   -d *.example.org \
   -d www.example.cn \
@@ -103,7 +115,7 @@ certbot 提供了一个 hook，可以编写一个 Shell 脚本，让脚本调用
 1：对机器上所有证书 renew
 
 ```sh
-./certbot-auto renew  \
+certbot-auto renew  \
   --manual --preferred-challenges dns \
   --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh aly add" \
   --manual-cleanup-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh aly clean"
@@ -114,7 +126,7 @@ certbot 提供了一个 hook，可以编写一个 Shell 脚本，让脚本调用
 先看看机器上有多少证书：
 
 ```
-./certbot-auto certificates
+certbot-auto certificates
 ```
 
 可以看到很多证书，如图：
@@ -124,7 +136,7 @@ certbot 提供了一个 hook，可以编写一个 Shell 脚本，让脚本调用
 记住证书名，比如 simplehttps.com，然后运行下列命令 renew：
 
 ```sh
-./certbot-auto renew \
+certbot-auto renew \
   --cert-name simplehttps.com  \
   --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh aly add" \
   --manual-cleanup-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh aly clean"
@@ -176,4 +188,3 @@ EOF
 - 腾讯云 python 版 @akgnah
 - 华为云 python 版 @jinhucheung
 - GoDaddy PHP 版 wlx_1990 （2019-01-11）
-
