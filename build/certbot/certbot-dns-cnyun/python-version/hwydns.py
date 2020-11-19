@@ -18,7 +18,7 @@ else:
     import urllib.parse as urllib
 
 class HwyDns:
-    __endpoint = 'dns.myhuaweicloud.com'
+    __endpoint = 'dns.cn-southwest-2.myhuaweicloud.com'
 
     def __init__(self, access_key_id, secret_access_key):
         self.access_key_id = access_key_id

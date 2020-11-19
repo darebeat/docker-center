@@ -5,29 +5,29 @@
 ###### 根据自己的情况修改 Begin ##############
 
 #PHP 命令行路径，如果有需要可以修改
-phpcmd="/usr/bin/php"
+phpcmd="/usr/local/bin/php"
 #Python 命令行路径，如果有需要可以修改
-pythoncmd="/usr/bin/python"
+pythoncmd="/usr/local/bin/python"
 
 #填写阿里云的AccessKey ID及AccessKey Secret
 #如何申请见https://help.aliyun.com/knowledge_detail/38738.html
-ALY_KEY=""
-ALY_TOKEN=""
+ALY_KEY=${ALY_KEY:-""}
+ALY_TOKEN=${ALY_TOKEN:-""}
 
 #填写腾讯云的SecretId及SecretKey
 #如何申请见https://console.cloud.tencent.com/cam/capi
-TXY_KEY=""
-TXY_TOKEN=""
+TXY_KEY=${TXY_KEY:-""}
+TXY_TOKEN=${TXY_TOKEN:-""}
 
 #填写华为云的 Access Key Id 及 Secret Access Key
 #如何申请见https://support.huaweicloud.com/devg-apisign/api-sign-provide.html
-HWY_KEY=""
-HWY_TOKEN=""
+HWY_KEY=${HWY_KEY:-""}
+HWY_TOKEN=${HWY_TOKEN:-""}
 
 #GoDaddy的SecretId及SecretKey
 #如何申请见https://developer.godaddy.com/getstarted
-GODADDY_KEY=""
-GODADDY_TOKEN=""
+GODADDY_KEY=${GODADDY_KEY:-""}
+GODADDY_TOKEN=${GODADDY_TOKEN:-""}
 
 ################ END ##############
 
