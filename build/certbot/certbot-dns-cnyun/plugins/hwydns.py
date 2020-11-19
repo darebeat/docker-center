@@ -51,7 +51,7 @@ class HwyDns:
         self.__request('POST', '/v2/zones/%s/recordsets' % (zone_id), {
             'name'      : '%s.%s.' % (rr, domain),
             'type'      : _type,
-            'records'   : value # [ "\"%s\"" % (value) ] # [ '"'+'" "'.join(value.split(" "))+'"' ] #
+            'records'   : [ "\"%s\"" % (value) ] # [ '"'+'" "'.join(value.split(" "))+'"' ] #
         })
 
     # @example hwydns.delete_domain_record("example.com", "_acme-challenge", "TXT")
@@ -233,14 +233,7 @@ if __name__ == '__main__':
     hwydns = HwyDns(api_key, api_secret)
 
     if 'add' == action:
-        _certbot_validation = []
-        exists_rs = hwydns.get_domain_recordset_txt(main_domain, subdomain, "TXT")
-        if exists_rs:
-            _certbot_validation = exists_rs
-            hwydns.delete_domain_record(main_domain, subdomain)
-        _certbot_validation.append('"'+certbot_validation+'"')
-        _certbot_validation = list(set(_certbot_validation))
-        hwydns.add_domain_record(main_domain, subdomain, _certbot_validation)
+        hwydns.add_domain_record(main_domain, subdomain, certbot_validation)
     elif 'clean' == action:
         hwydns.delete_domain_record(main_domain, subdomain)
 
