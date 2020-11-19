@@ -13,7 +13,7 @@ ssl_prefer_server_ciphers on;
 ssl_ciphers ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5;
 ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 
-ssl_stapling on; 
-ssl_stapling_verify on; 
-resolver ns1.huaweicloud-dns.org ns1.huaweicloud-dns.net ns1.huaweicloud-dns.cn ns1.huaweicloud-dns.com valid=300s; 
-resolver_timeout 5s;
+# ssl_stapling on; 
+# ssl_stapling_verify on; 
+# resolver 114.114.114.114 8.8.8.8 valid=300s; 
+# resolver_timeout 5s;
