@@ -1,29 +1,19 @@
 #!/bin/bash
 
+# USAGE:
+## bash +x renew.sh txy /etc/nginx/ssl
+
 declare -r CURR_DIR=$(cd `dirname $0`;pwd)
 
-echo "-----START " `date +"%Y-%m-%d %H:%M:%S"` "-----"  >> ${CURR_DIR}/renew.log
+COPY_PATH=${CURR_DIR}/etc
+TARG_PATH=${2:-${CURR_DIR}/../nginx/conf/certs}
+LOG_PATH=${CURR_DIR}/log
 
-# # dnspod
-# docker run --rm -it \
-# -v ${CURR_DIR}/dnspod.conf:/opt/certbot/dnspod.conf \  # dnspod配置文件
-# -v ${CURR_DIR}/etc:/etc/letsencrypt \
-# -v ${CURR_DIR}/lib:/var/lib/letsencrypt \
-# -v ${CURR_DIR}/log:/var/log/letsencrypt \
-# darebeat/certbot renew  >> ${CURR_DIR}/renew.log 2>&1
+echo "--- START: " `date +"%Y-%m-%d %H:%M:%S"` "---" >> ${LOG_PATH}/renew.log
 
-# hwy/aly/txy/godaddy
-docker run --rm -it \
--v ${CURR_DIR}/etc:/etc/letsencrypt \
--v ${CURR_DIR}/lib:/var/lib/letsencrypt \
--v ${CURR_DIR}/log:/var/log/letsencrypt \
--v ${CURR_DIR}/domains:/opt/certbot/certbot-dns-cnyun/domains \  # 根据需要进行扩展
---env-file ${CURR_DIR}/.env \  # api key/token config
-darebeat/certbot renew
-  --manual --preferred-challenges dns \
-  --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy add" \
-  --manual-cleanup-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy clean" >> ${CURR_DIR}/renew.log 2>&1
+echo "COPY_PATH: ${COPY_PATH}"
+echo "TARG_PATH: ${TARG_PATH}"
+echo "LOG_PATH : ${LOG_PATH}"
+#scp -r ${COPY_PATH} ${1:-txy}:${TARG_PATH} >> ${LOG_PATH}/renew.log
 
-scp -r ${CURR_DIR}/etc txy:/root/projects/docker-center/deploy/nginx/conf/certs >> ${CURR_DIR}/renew.log
-
-echo "-----END" `date +"%Y-%m-%d %H:%M:%S"`"-----"  >> ${CURR_DIR}/renew.log
+echo "---   END: " `date +"%Y-%m-%d %H:%M:%S"`"---" >> ${LOG_PATH}/renew.log
