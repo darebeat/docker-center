@@ -45,7 +45,7 @@ darebeat/certbot \
   certonly -a dns-dnspod \
   --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf \
   --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory \
-  -m dareebat@126.com \
+  -m darebeat@126.com \
   -d *.darebeat.cn \
   -d darebeat.cn
 

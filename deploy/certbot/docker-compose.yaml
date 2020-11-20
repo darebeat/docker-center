@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  # certbot-init:
+  #   image: darebeat/certbot
+  #   container_name: certbot-renew
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - TZ=Asia/Shanghai
+  #   volumes:
+  #     - ./etc:/etc/letsencrypt:z
+  #     - ./lib:/var/lib/letsencrypt:z
+  #     - ./log:/var/log/letsencrypt:z
+  #     - ./domains:/opt/certbot/certbot-dns-cnyun/domains:ro
+  #   command:
+  #     # 首次部署需要执行该容器生成证书
+  #     - sh
+  #     - -c
+  #     - |
+  #         certbot certonly \
+  #           -m darebeat@126.com \
+  #           -d *.darebeat.cn \
+  #           -d *.blog.darebeat.cn \
+  #           -d darebeat.cn \
+  #           --manual --preferred-challenges dns \
+  #           --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy add" \
+  #           --manual-cleanup-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy clean"
+  #   entrypoint: ""
+      
+
+  certbot-renew:
+    image: darebeat/certbot
+    container_name: certbot-renew
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./etc:/etc/letsencrypt:z
+      - ./lib:/var/lib/letsencrypt:z
+      - ./log:/var/log/letsencrypt:z
+      - ./domains:/opt/certbot/certbot-dns-cnyun/domains:ro
+    command: 
+      - sh
+      - -c
+      - |
+          crontab -l >> /cronfig
+          echo "1 1 1 * * certbot renew \
+            --manual --preferred-challenges dns \
+            --manual-auth-hook \"/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy add\" \
+            --manual-cleanup-hook \"/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy clean\">> /var/log/renew.log" >> /cronfig
+          crontab /cronfig
+          touch /var/log/renew.log
+          crond
+          tail -f /var/log/renew.log
+    entrypoint: ""
+          
+networks:
+  deploy:
+    external: true
