@@ -1,61 +1,26 @@
 version: "3"
 
 services:
-  # certbot-init:
-  #   image: darebeat/certbot
-  #   container_name: certbot-renew
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - TZ=Asia/Shanghai
-  #   volumes:
-  #     - ./etc:/etc/letsencrypt:z
-  #     - ./lib:/var/lib/letsencrypt:z
-  #     - ./log:/var/log/letsencrypt:z
-  #     - ./domains:/opt/certbot/certbot-dns-cnyun/domains:ro
-  #   command:
-  #     # 首次部署需要执行该容器生成证书
-  #     - sh
-  #     - -c
-  #     - |
-  #         certbot certonly \
-  #           -m darebeat@126.com \
-  #           -d *.darebeat.cn \
-  #           -d *.blog.darebeat.cn \
-  #           -d darebeat.cn \
-  #           --manual --preferred-challenges dns \
-  #           --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy add" \
-  #           --manual-cleanup-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy clean"
-  #   entrypoint: ""
-      
-
-  certbot-renew:
+  certbot:
     image: darebeat/certbot
-    container_name: certbot-renew
+    container_name: certbot
     env_file:
       - .env
-    environment:
+    environment: 
+      - CERT_START_MODE=renew-auto # crontab控制初始化或自动续期
+      - CERT_DNS_VENDOR=hwy # dnspod|hwy|txy|aly|godaddy
+      - CERT_EMAIL=darebeat@126.com
+      - CERT_REQ_DOMAINS="darebeat.cn,*.darebeat.cn,*.blog.darebeat.cn" # 多个域名用英文逗号隔开
+      - CERT_CRON_TIME="1 1 1 * *"
+      - CERT_LOG_DIR=/var/log
       - TZ=Asia/Shanghai
     volumes:
       - ./etc:/etc/letsencrypt:z
       - ./lib:/var/lib/letsencrypt:z
       - ./log:/var/log/letsencrypt:z
       - ./domains:/opt/certbot/certbot-dns-cnyun/domains:ro
+      # - ./docker-entrypoint.sh:/docker-entrypoint.sh # 可以根据需要调整脚本
+    entrypoint: /docker-entrypoint.sh # 覆盖镜像默认指令
     command: 
-      - sh
-      - -c
-      - |
-          crontab -l >> /cronfig
-          echo "1 1 1 * * certbot renew \
-            --manual --preferred-challenges dns \
-            --manual-auth-hook \"/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy add\" \
-            --manual-cleanup-hook \"/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy clean\">> /var/log/renew.log" >> /cronfig
-          crontab /cronfig
-          touch /var/log/renew.log
-          crond
-          tail -f /var/log/renew.log
-    entrypoint: ""
-          
-networks:
-  deploy:
-    external: true
+      - renew-auto  # 同CERT_START_MODE,可以任选其一进行配置(这个优先级高)
+      - hwy         # 同CERT_DNS_VENDOR,可以任选其一进行配置(这个优先级高)
