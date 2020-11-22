@@ -4,11 +4,13 @@ CERT_START_MODE=${1:-$CERT_START_MODE};shift;
 CERT_DNS_VENDOR=${1:-$CERT_DNS_VENDOR};shift;
 CERT_START_MODE=${CERT_START_MODE:-certonly}
 CERT_DNS_VENDOR=${CERT_DNS_VENDOR:-hwy}
-CERT_CRON_TIME=${CERT_CRON_TIME:-"1 1 1 * *"}
+CERT_CRON_TIME=${CERT_CRON_TIME:-"1 1 */1 * *"}
+CERT_CRON_TIME=${CERT_CRON_TIME//[\"\']/}
 CERT_EMAIL=${CERT_EMAIL:-darebeat@126.com}
 CERT_REQ_DOMAINS=${CERT_REQ_DOMAINS:-"*.darebeat.cn"}
+CERT_REQ_DOMAINS=${CERT_REQ_DOMAINS//[\"\']/}
 CERT_REQ_DOMAIN=$(echo ${CERT_REQ_DOMAINS}|awk -F '[ ,]' '{print $1}')
-CERT_REQ_DOMAIN=${CERT_REQ_DOMAIN/\*./}
+CERT_REQ_DOMAIN=${CERT_REQ_DOMAIN//\*./}
 
 _CCH="/opt/certbot/certbot-dns-cnyun/dns-flush.sh ${CERT_DNS_VENDOR}"
 _LOG_DIR="${CERT_LOG_DIR:-/var/log}"
@@ -39,19 +41,19 @@ _renew_auto(){
   case $CERT_DNS_VENDOR in
     hwy|aly|txy|godaddy)
       (
-        # crontab -l;
+        # crontab -l; # 加上原系统的定时任务
         echo "${CERT_CRON_TIME} certbot renew $@ --manual --preferred-challenges dns --manual-auth-hook \"${_CCH} add\" --manual-cleanup-hook \"${_CCH} clean\">>${_LOG_DIR}/renew.log"
       ) | uniq > /etc/crontabs/certbot 
       ;;
     dp|dnspod)
       ( 
-        # crontab -l;
+        # crontab -l; # 加上原系统的定时任务
         echo "${CERT_CRON_TIME} certbot renew $@ >> ${_LOG_DIR}/renew.log"
       ) | uniq > /etc/crontabs/certbot
       ;;
     *)
       (
-        # crontab -l;
+        # crontab -l; # 加上原系统的定时任务
         echo "${CERT_CRON_TIME} certbot renew $@ >> ${_LOG_DIR}/renew.log"
       ) | uniq > /etc/crontabs/certbot
       ;;
@@ -66,12 +68,16 @@ _renew(){
   case $CERT_DNS_VENDOR in
     hwy|aly|txy|godaddy)
       certbot renew \
+        # --server https://acme-v02.api.letsencrypt.org/directory \
         --manual --preferred-challenges dns \
         --manual-auth-hook \"${_CCH} add\" \
         --manual-cleanup-hook \"${_CCH} clean\" $@
       ;;
     dp|dnspod)
-      certbot renew $@
+      certbot renew -a dns-dnspod \
+        --preferred-challenges dns \
+        # --server https://acme-v02.api.letsencrypt.org/directory \
+        --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf $@   
       ;;
     *)
       certbot renew $@
@@ -89,6 +95,7 @@ _certonly(){
         -n --agree-tos \
         -m ${CERT_EMAIL} \
         -d ${CERT_REQ_DOMAINS} \
+        # --server https://acme-v02.api.letsencrypt.org/directory \
         --manual-public-ip-logging-ok \
         --manual --preferred-challenges dns \
         --manual-auth-hook "${_CCH} add" \
@@ -100,10 +107,10 @@ _certonly(){
         -m ${CERT_EMAIL} \
         -d ${CERT_REQ_DOMAINS} \
         --manual-public-ip-logging-ok \
+        # --server https://acme-v02.api.letsencrypt.org/directory \
         -a dns-dnspod \
         --preferred-challenges dns \
-        --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf \
-        --server https://acme-v02.api.letsencrypt.org/directory $@
+        --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf $@
       ;;
     *)
       certbot certonly $@  
@@ -117,7 +124,7 @@ if [ ${CERT_START_MODE}x == "renew-auto"x ]; then
   while [ $_fc -ne 4 -a $_n -le 3 ]; do
     [ $_n -gt 0 ] && echo "==> Warning: certbot certonly retry ${_n} times running."
     # 如果没有生成对应的live文件,重新生成
-    $(_certonly $@ >> ${_LOG_DIR}/renew-auto.log)
+    $(_certonly $@ >> ${_LOG_DIR}/renew.log)
     [ $_n -gt 0 ] && echo "==> Warning: certbot certonly retry ${_n} times ended."
     _n=$((_n + 1));
     _fc=$(_get_pem_wc)
@@ -127,10 +134,10 @@ if [ ${CERT_START_MODE}x == "renew-auto"x ]; then
 
   $(_renew_auto $@)
   echo "==> Warning: Due to network reasons, you should check whether the certificate is generated correctly. If it is failed, we will retry 3 times every 1 minute by default."
-  echo "==> Warning: You can find more information in ${_LOG_DIR}/renew-auto.log"
+  echo "==> Warning: You can find more information in ${_LOG_DIR}/renew.log"
   echo "==> Log: `date +"%Y-%m-%d %H:%M:%S"` ==> certbot renew-auto is started."
   # 日志监控,常驻进程,防止容器退出
-  touch ${_LOG_DIR}/renew-auto.log && tail -f ${_LOG_DIR}/renew-auto.log
+  touch ${_LOG_DIR}/renew.log && tail -f ${_LOG_DIR}/renew.log
 elif [ ${CERT_START_MODE}x == "renew"x ]; then
   echo "==> Log: `date +"%Y-%m-%d %H:%M:%S"` ==> running: certbot renew."
   $(_renew $@)

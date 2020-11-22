@@ -10,8 +10,8 @@ services:
       - CERT_START_MODE=renew-auto # crontab控制初始化或自动续期
       - CERT_DNS_VENDOR=hwy # dnspod|hwy|txy|aly|godaddy
       - CERT_EMAIL=darebeat@126.com
-      - CERT_REQ_DOMAINS="darebeat.cn,*.darebeat.cn,*.blog.darebeat.cn" # 多个域名用英文逗号隔开
-      - CERT_CRON_TIME="1 1 1 * *"
+      - CERT_REQ_DOMAINS=darebeat.cn,*.darebeat.cn,*.blog.darebeat.cn # 多个域名用英文逗号隔开
+      - CERT_CRON_TIME=1 1 */7 * * # crontab日期格式 # 分 时 日 月 周
       - CERT_LOG_DIR=/var/log
       - TZ=Asia/Shanghai
     volumes:

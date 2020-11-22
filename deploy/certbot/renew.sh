@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # USAGE:
+# $1: ssh 连接; 如root@darebeat.cn
 ## sh +x renew.sh txy /etc/nginx/ssl
 
 declare -r CURR_DIR=$(cd `dirname $0`;pwd)
