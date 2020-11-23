@@ -11,7 +11,7 @@ services:
       - CERT_DNS_VENDOR=hwy # dnspod|hwy|txy|aly|godaddy
       - CERT_EMAIL=darebeat@126.com
       - CERT_REQ_DOMAINS=darebeat.cn,*.darebeat.cn,*.blog.darebeat.cn # 多个域名用英文逗号隔开
-      - CERT_CRON_TIME=1 1 */7 * * # crontab日期格式 # 分 时 日 月 周
+      - CERT_CRON_TIME=1 1 */7 * * # crontab日期格式 0 4 1 */2 * # 分 时 日 月 周
       - CERT_LOG_DIR=/var/log
       - TZ=Asia/Shanghai
     volumes:
@@ -24,3 +24,4 @@ services:
     command: 
       - renew-auto  # 同CERT_START_MODE,可以任选其一进行配置(这个优先级高)
       - hwy         # 同CERT_DNS_VENDOR,可以任选其一进行配置(这个优先级高)
+      - --force-renew # 强制更新

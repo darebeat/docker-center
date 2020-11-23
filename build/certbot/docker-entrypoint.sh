@@ -65,18 +65,25 @@ _renew_auto(){
 
 _renew(){
   # 一次性调用进行证书自动续期
+  # --force-renewal 强制更新
   case $CERT_DNS_VENDOR in
     hwy|aly|txy|godaddy)
       certbot renew \
-        # --server https://acme-v02.api.letsencrypt.org/directory \
-        --manual --preferred-challenges dns \
+        -n \
+        --agree-tos \
+        --preferred-challenges dns \
+        --server https://acme-v02.api.letsencrypt.org/directory \
+        --manual \
         --manual-auth-hook \"${_CCH} add\" \
         --manual-cleanup-hook \"${_CCH} clean\" $@
       ;;
     dp|dnspod)
-      certbot renew -a dns-dnspod \
+      certbot renew \
+        -n \
+        --agree-tos \
         --preferred-challenges dns \
-        # --server https://acme-v02.api.letsencrypt.org/directory \
+        --server https://acme-v02.api.letsencrypt.org/directory \
+        -a dns-dnspod \
         --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf $@   
       ;;
     *)
@@ -92,24 +99,28 @@ _certonly(){
   case $CERT_DNS_VENDOR in 
     hwy|aly|txy|godaddy)
       certbot certonly \
-        -n --agree-tos \
+        -n \
+        --agree-tos \
         -m ${CERT_EMAIL} \
         -d ${CERT_REQ_DOMAINS} \
-        # --server https://acme-v02.api.letsencrypt.org/directory \
+        --preferred-challenges dns \
+        --server https://acme-v02.api.letsencrypt.org/directory \
+        --manual \
         --manual-public-ip-logging-ok \
-        --manual --preferred-challenges dns \
         --manual-auth-hook "${_CCH} add" \
         --manual-cleanup-hook "${_CCH} clean" $@
       ;;
     dp|dnspod)
       certbot certonly \
-        -n --agree-tos \
+        -n \
+        --agree-tos \
         -m ${CERT_EMAIL} \
         -d ${CERT_REQ_DOMAINS} \
-        --manual-public-ip-logging-ok \
-        # --server https://acme-v02.api.letsencrypt.org/directory \
-        -a dns-dnspod \
         --preferred-challenges dns \
+        --server https://acme-v02.api.letsencrypt.org/directory \
+        --manual \
+        --manual-public-ip-logging-ok \
+        -a dns-dnspod \
         --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf $@
       ;;
     *)
