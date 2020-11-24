@@ -4,4 +4,4 @@ dnspod.conf
 etc
 lib
 log
-./docker-entrypoint.sh
+docker-entrypoint.sh
