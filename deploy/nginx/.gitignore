@@ -1,2 +1,3 @@
 conf/certs
 .env_certbot
+conf/conf.d/dhparams.pem
