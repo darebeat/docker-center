@@ -1,1 +1,2 @@
 conf/certs
+.env_certbot

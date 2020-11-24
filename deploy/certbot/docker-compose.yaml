@@ -24,4 +24,4 @@ services:
     command: 
       - renew-auto  # 同CERT_START_MODE,可以任选其一进行配置(这个优先级高)
       - hwy         # 同CERT_DNS_VENDOR,可以任选其一进行配置(这个优先级高)
-      - --force-renew # 强制更新
+      # - --force-renew # 强制更新
