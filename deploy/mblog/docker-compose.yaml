@@ -20,7 +20,7 @@ services:
     ports:
       - "10104:8080"
     volumes:
-      - ./data:/app/mblog/storage:rw
+      - ./storage:/app/mblog/storage:rw
       - ./logs:/app/mblog/logs:rw
     restart: always
 
