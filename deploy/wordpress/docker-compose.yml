@@ -4,7 +4,7 @@ services:
     container_name: wordpress
     image: wordpress:latest
     ports:
-      - "10102:80"
+      - "10101:80"
     restart: always
     networks:
       deploy:
@@ -21,7 +21,7 @@ services:
       - mysql
     volumes:
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
-      - ./html-dt/wp-content:/var/www/html/wp-content:rw
+      - ./html/wp-content:/var/www/html/wp-content:rw
 
 networks:
   deploy:

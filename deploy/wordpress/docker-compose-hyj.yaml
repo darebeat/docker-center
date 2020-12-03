@@ -4,7 +4,7 @@ services:
     container_name: wordpress-hyj
     image: wordpress:latest
     ports:
-      - "8000:80"
+      - "10102:80"
     restart: always
     networks:
       deploy:
@@ -21,7 +21,7 @@ services:
       - mysql
     volumes:
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
-      - ./html-yj/wp-content:/var/www/html/wp-content:rw
+      - ./html/wp-content-yj:/var/www/html/wp-content:rw
 
 networks:
   deploy:
