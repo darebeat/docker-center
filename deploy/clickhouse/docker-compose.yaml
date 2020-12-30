@@ -1,0 +1,94 @@
+version: '3'
+services:
+  zk:
+    image: zookeeper:3.5
+    container_name: zk
+    hostname: zk
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.80
+    environment:
+      - TZ=Asia/Shanghai
+
+  ch1:
+    image: yandex/clickhouse-server:20.8.11.17
+    container_name: ch1
+    hostname: ch1
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.81
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "127.0.0.1:8123:8123"
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - ./data/ch1:/var/lib/clickhouse:rw
+      - ./conf/config_01.xml:/etc/clickhouse-server/config.xml
+      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml
+      - ./conf/cluster_config.xml:/etc/clickhouse-server/cluster_config.xml
+      - ./conf/users.xml:/etc/clickhouse-server/users.xml
+      - ./log/log-01:/var/log/clickhouse-server:rw
+    depends_on:
+      - zk
+
+  ch2:
+    image: yandex/clickhouse-server:20.8.11.17
+    container_name: ch2
+    hostname: ch2
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.82
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data/ch2:/var/lib/clickhouse:rw
+      - ./conf/config_02.xml:/etc/clickhouse-server/config.xml
+      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml
+      - ./conf/cluster_config.xml:/etc/clickhouse-server/cluster_config.xml
+      - ./conf/users.xml:/etc/clickhouse-server/users.xml
+      - ./log/log-02:/var/log/clickhouse-server:rw
+    depends_on:
+      - zk
+
+  ch3:
+    image: yandex/clickhouse-server:20.8.11.17
+    container_name: ch3
+    hostname: ch3
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.83
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data/ch3:/var/lib/clickhouse:rw
+      - ./conf/config_03.xml:/etc/clickhouse-server/config.xml
+      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml
+      - ./conf/cluster_config.xml:/etc/clickhouse-server/cluster_config.xml
+      - ./conf/users.xml:/etc/clickhouse-server/users.xml
+      - ./log/log-03:/var/log/clickhouse-server:rw
+    depends_on:
+      - zk
+
+  ch4:
+    image: yandex/clickhouse-server:20.8.11.17
+    container_name: ch4
+    hostname: ch4
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.84
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data/ch4:/var/lib/clickhouse:rw
+      - ./conf/config_04.xml:/etc/clickhouse-server/config.xml
+      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml
+      - ./conf/cluster_config.xml:/etc/clickhouse-server/cluster_config.xml
+      - ./conf/users.xml:/etc/clickhouse-server/users.xml
+      - ./log/log-04:/var/log/clickhouse-server:rw
+    depends_on:
+      - zk
+
+networks:
+  deploy:
+    external: true

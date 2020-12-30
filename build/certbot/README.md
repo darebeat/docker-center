@@ -42,13 +42,18 @@ docker run --rm -it \
   -v `pwd`/log:/var/log/letsencrypt \
   -v `pwd`/dnspod.conf:/opt/certbot/dnspod.conf \
   darebeat/certbot certonly \
+    -n \
+    --agree-tos \
     -m darebeat@126.com \
     -d darebeat.cn \
     -d *.darebeat.cn \
     -d *.blog.darebeat.cn \
+    --preferred-challenges dns \
+    --server https://acme-v02.api.letsencrypt.org/directory \
+    --manual \
+    --manual-public-ip-logging-ok \
     -a dns-dnspod \
-    --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf \
-    --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
+    --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf
   
 # hwy/aly/txy/godaddy
 docker run --rm -it \
@@ -58,11 +63,16 @@ docker run --rm -it \
   -v `pwd`/domains:/opt/certbot/certbot-dns-cnyun/domains \  # 根据需要进行扩展
   --env-file ${CURR_DIR}/.env \  # api key/token config
   darebeat/certbot certonly \
+    -n \
+    --agree-tos \
     -m darebeat@126.com \
     -d darebeat.cn \
     -d *.darebeat.cn \
     -d *.blog.darebeat.cn \
-    --manual --preferred-challenges dns \
+    --preferred-challenges dns \
+    --server https://acme-v02.api.letsencrypt.org/directory \
+    --manual \
+    --manual-public-ip-logging-ok \
     --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy add" \
     --manual-cleanup-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh hwy clean"
 ```
@@ -95,9 +105,11 @@ docker run --rm -it \
       -v ${CURR_DIR}/lib:/var/lib/letsencrypt \
       -v ${CURR_DIR}/log:/var/log/letsencrypt \
       darebeat/certbot renew \
-        -a dns-dnspod \
+        -n \
+        --agree-tos \
         --preferred-challenges dns \
-        # --server https://acme-v02.api.letsencrypt.org/directory \
+        --server https://acme-v02.api.letsencrypt.org/directory \
+        -a dns-dnspod \
         --certbot-dns-dnspod:dns-dnspod-credentials /opt/certbot/dnspod.conf $@  
   }
 
@@ -110,7 +122,11 @@ docker run --rm -it \
       -v ${CURR_DIR}/domains:/opt/certbot/certbot-dns-cnyun/domains \  # 根据需要进行扩展
       --env-file ${CURR_DIR}/.env \  # api key/token config
       darebeat/certbot renew \
-        --manual --preferred-challenges dns \
+        -n \
+        --agree-tos \
+        --preferred-challenges dns \
+        --server https://acme-v02.api.letsencrypt.org/directory \
+        --manual \
         --manual-auth-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh ${CERT_DNS_VENDOR} add" \
         --manual-cleanup-hook "/opt/certbot/certbot-dns-cnyun/dns-flush.sh ${CERT_DNS_VENDOR} clean"
   }
