@@ -1,7 +1,7 @@
 version: '3'
 services:
   zk:
-    image: zookeeper:3.5
+    image: zookeeper:${ZK_VERSION:-3.5}
     container_name: zk
     hostname: zk
     networks:
@@ -11,7 +11,7 @@ services:
       - TZ=Asia/Shanghai
 
   ch1:
-    image: yandex/clickhouse-server:20.8.11.17
+    image: yandex/clickhouse-server:${CK_VERSION:-20.8.11.17}
     container_name: ch1
     hostname: ch1
     networks:
@@ -19,21 +19,36 @@ services:
         ipv4_address: 172.10.0.81
     environment:
       - TZ=Asia/Shanghai
+      - SHARD=01
+      - REPLICA=ch1
+    command:
+      - bash
+      - -c
+      - |
+        cat > /etc/clickhouse-server/config.d/macros.xml << EOF
+        <yandex>
+          <macros>
+            <shard>${SHARD:-01}</shard>
+            <replica>${REPLICA:-ch1}</replica>
+          </macros>
+        </yandex>
+        EOF
+        /entrypoint.sh
     ports:
       - "127.0.0.1:8123:8123"
       - "127.0.0.1:9000:9000"
     volumes:
       - ./data/ch1:/var/lib/clickhouse:rw
-      - ./conf/config_01.xml:/etc/clickhouse-server/config.xml
-      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml
-      - ./conf/cluster_config.xml:/etc/clickhouse-server/cluster_config.xml
-      - ./conf/users.xml:/etc/clickhouse-server/users.xml
-      - ./log/log-01:/var/log/clickhouse-server:rw
+      - ./conf/config.xml:/etc/clickhouse-server/config.xml:ro
+      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml:ro
+      - ./conf/metrika.xml:/etc/clickhouse-server/metrika.xml:ro
+      - ./conf/users.xml:/etc/clickhouse-server/users.xml:ro
+      - ./log/log_01:/var/log/clickhouse-server:rw
     depends_on:
       - zk
 
   ch2:
-    image: yandex/clickhouse-server:20.8.11.17
+    image: yandex/clickhouse-server:${CK_VERSION:-20.8.11.17}
     container_name: ch2
     hostname: ch2
     networks:
@@ -41,18 +56,33 @@ services:
         ipv4_address: 172.10.0.82
     environment:
       - TZ=Asia/Shanghai
+      - SHARD=01
+      - REPLICA=ch2
+    command:
+      - bash
+      - -c
+      - |
+        cat > /etc/clickhouse-server/config.d/macros.xml << EOF
+        <yandex>
+          <macros>
+            <shard>${SHARD:-01}</shard>
+            <replica>${REPLICA:-ch2}</replica>
+          </macros>
+        </yandex>
+        EOF
+        /entrypoint.sh
     volumes:
       - ./data/ch2:/var/lib/clickhouse:rw
-      - ./conf/config_02.xml:/etc/clickhouse-server/config.xml
-      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml
-      - ./conf/cluster_config.xml:/etc/clickhouse-server/cluster_config.xml
-      - ./conf/users.xml:/etc/clickhouse-server/users.xml
-      - ./log/log-02:/var/log/clickhouse-server:rw
+      - ./conf/config.xml:/etc/clickhouse-server/config.xml:ro
+      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml:ro
+      - ./conf/metrika.xml:/etc/clickhouse-server/metrika.xml:ro
+      - ./conf/users.xml:/etc/clickhouse-server/users.xml:ro
+      - ./log/log_02:/var/log/clickhouse-server:rw
     depends_on:
       - zk
 
   ch3:
-    image: yandex/clickhouse-server:20.8.11.17
+    image: yandex/clickhouse-server:${CK_VERSION:-20.8.11.17}
     container_name: ch3
     hostname: ch3
     networks:
@@ -60,18 +90,33 @@ services:
         ipv4_address: 172.10.0.83
     environment:
       - TZ=Asia/Shanghai
+      - SHARD=02
+      - REPLICA=ch3
+    command:
+      - bash
+      - -c
+      - |
+        cat > /etc/clickhouse-server/config.d/macros.xml << EOF
+        <yandex>
+          <macros>
+            <shard>${SHARD:-02}</shard>
+            <replica>${REPLICA:-ch3}</replica>
+          </macros>
+        </yandex>
+        EOF
+        /entrypoint.sh
     volumes:
       - ./data/ch3:/var/lib/clickhouse:rw
-      - ./conf/config_03.xml:/etc/clickhouse-server/config.xml
-      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml
-      - ./conf/cluster_config.xml:/etc/clickhouse-server/cluster_config.xml
-      - ./conf/users.xml:/etc/clickhouse-server/users.xml
-      - ./log/log-03:/var/log/clickhouse-server:rw
+      - ./conf/config.xml:/etc/clickhouse-server/config.xml:ro
+      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml:ro
+      - ./conf/metrika.xml:/etc/clickhouse-server/metrika.xml:ro
+      - ./conf/users.xml:/etc/clickhouse-server/users.xml:ro
+      - ./log/log_03:/var/log/clickhouse-server:rw
     depends_on:
       - zk
 
   ch4:
-    image: yandex/clickhouse-server:20.8.11.17
+    image: yandex/clickhouse-server:${CK_VERSION:-20.8.11.17}
     container_name: ch4
     hostname: ch4
     networks:
@@ -79,13 +124,28 @@ services:
         ipv4_address: 172.10.0.84
     environment:
       - TZ=Asia/Shanghai
+      - SHARD=02
+      - REPLICA=ch4
+    command:
+      - bash
+      - -c
+      - |
+        cat > /etc/clickhouse-server/config.d/macros.xml << EOF
+        <yandex>
+          <macros>
+            <shard>${SHARD:-02}</shard>
+            <replica>${REPLICA:-ch4}</replica>
+          </macros>
+        </yandex>
+        EOF
+        /entrypoint.sh
     volumes:
       - ./data/ch4:/var/lib/clickhouse:rw
-      - ./conf/config_04.xml:/etc/clickhouse-server/config.xml
-      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml
-      - ./conf/cluster_config.xml:/etc/clickhouse-server/cluster_config.xml
-      - ./conf/users.xml:/etc/clickhouse-server/users.xml
-      - ./log/log-04:/var/log/clickhouse-server:rw
+      - ./conf/config.xml:/etc/clickhouse-server/config.xml:ro
+      - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml:ro
+      - ./conf/metrika.xml:/etc/clickhouse-server/metrika.xml:ro
+      - ./conf/users.xml:/etc/clickhouse-server/users.xml:ro
+      - ./log/log_04:/var/log/clickhouse-server:rw
     depends_on:
       - zk
 

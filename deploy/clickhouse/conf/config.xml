@@ -68,10 +68,6 @@
   <zookeeper incl="zookeeper-servers" optional="true" />
   <compression incl="clickhouse_compression" />
   <!-- <macros incl="macros" optional="true" /> -->
-  <macros>
-    <shard>02</shard>
-    <replica>ch4</replica>
-  </macros>
   
   <builtin_dictionaries_reload_interval>3600</builtin_dictionaries_reload_interval>
   <max_session_timeout>3600</max_session_timeout>
