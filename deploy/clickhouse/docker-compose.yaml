@@ -39,11 +39,12 @@ services:
       - "127.0.0.1:9000:9000"
     volumes:
       - ./data/ch1:/var/lib/clickhouse:rw
+      - ./data/datasets:/etc/clickhouse-server/datasets:rw
       - ./conf/config.xml:/etc/clickhouse-server/config.xml:ro
       - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml:ro
       - ./conf/metrika.xml:/etc/clickhouse-server/metrika.xml:ro
       - ./conf/users.xml:/etc/clickhouse-server/users.xml:ro
-      - ./log/log_01:/var/log/clickhouse-server:rw
+      - ./log/log1:/var/log/clickhouse-server:rw
     depends_on:
       - zk
 
@@ -73,11 +74,12 @@ services:
         /entrypoint.sh
     volumes:
       - ./data/ch2:/var/lib/clickhouse:rw
+      - ./data/datasets:/etc/clickhouse-server/datasets:rw
       - ./conf/config.xml:/etc/clickhouse-server/config.xml:ro
       - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml:ro
       - ./conf/metrika.xml:/etc/clickhouse-server/metrika.xml:ro
       - ./conf/users.xml:/etc/clickhouse-server/users.xml:ro
-      - ./log/log_02:/var/log/clickhouse-server:rw
+      - ./log/log2:/var/log/clickhouse-server:rw
     depends_on:
       - zk
 
@@ -107,11 +109,12 @@ services:
         /entrypoint.sh
     volumes:
       - ./data/ch3:/var/lib/clickhouse:rw
+      - ./data/datasets:/etc/clickhouse-server/datasets:rw
       - ./conf/config.xml:/etc/clickhouse-server/config.xml:ro
       - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml:ro
       - ./conf/metrika.xml:/etc/clickhouse-server/metrika.xml:ro
       - ./conf/users.xml:/etc/clickhouse-server/users.xml:ro
-      - ./log/log_03:/var/log/clickhouse-server:rw
+      - ./log/log3:/var/log/clickhouse-server:rw
     depends_on:
       - zk
 
@@ -141,11 +144,12 @@ services:
         /entrypoint.sh
     volumes:
       - ./data/ch4:/var/lib/clickhouse:rw
+      - ./data/datasets:/etc/clickhouse-server/datasets:rw
       - ./conf/config.xml:/etc/clickhouse-server/config.xml:ro
       - ./conf/dictionary.xml:/etc/clickhouse-server/dictionary.xml:ro
       - ./conf/metrika.xml:/etc/clickhouse-server/metrika.xml:ro
       - ./conf/users.xml:/etc/clickhouse-server/users.xml:ro
-      - ./log/log_04:/var/log/clickhouse-server:rw
+      - ./log/log4:/var/log/clickhouse-server:rw
     depends_on:
       - zk
 
