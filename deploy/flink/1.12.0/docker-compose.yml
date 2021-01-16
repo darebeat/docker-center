@@ -1,7 +1,7 @@
 version: "3"
 services:
   jobmanager:
-    image: flink:${FLINK_VERSION:-1.11.0-scala_2.11}
+    image: darebeat/flink:${FLINK_VERSION:-1.12.0-scala_2.11}
     ports:
       - "8081:8081"
     command:
@@ -29,7 +29,7 @@ services:
       - ./artifacts:/opt/flink/usrlib
 
   taskmanager:
-    image: flink:${FLINK_VERSION:-1.11.0-scala_2.11}
+    image: darebeat/flink:${FLINK_VERSION:-1.12.0-scala_2.11}
     depends_on:
       - jobmanager
     command:
@@ -59,7 +59,7 @@ services:
       - ./artifacts:/opt/flink/usrlib
 
   edge:
-    image: darebeat/netcat:latest # 需要自己手动build
+    image: darebeat/netcat:latest
     command: tail -f /entrypoint.sh
     container_name: flink-edge
     hostname: edge

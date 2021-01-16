@@ -34,7 +34,8 @@ networks:
 ## 使用
 
 ```sh
-cd 1.11.0
+git clone https://github.com/darebeat/docker-center.git
+cd docker-center/deploy/flink/1.11.0
 
 # Start JobManager and TaskManager
 docker-compose up -d

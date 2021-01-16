@@ -1,7 +1,7 @@
 version: "3"
 services:
   jobmanager:
-    image: flink:${FLINK_VERSION:-1.11.0-scala_2.11}
+    image: darebeat/flink:${FLINK_VERSION:-1.12.0-scala_2.11}
     ports:
       - "8081:8081"
     command: standalone-job --job-classname com.job.ClassName [--job-id <job id>] [--fromSavepoint /path/to/savepoint [--allowNonRestoredState]] [job arguments]
@@ -21,7 +21,7 @@ services:
         parallelism.default: 2
 
   taskmanager:
-    image: flink:${FLINK_VERSION:-1.11.0-scala_2.11}
+    image: darebeat/flink:${FLINK_VERSION:-1.12.0-scala_2.11}
     depends_on:
       - jobmanager
     command: taskmanager
