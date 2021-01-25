@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+  zoo1:
+    image: darebeat/zookeeper
+    restart: always
+    container_name: zoo1
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    environment:
+      ZK_MY_ID: 1
+      ZK_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+
+  zoo2:
+    image: darebeat/zookeeper
+    restart: always
+    container_name: zoo2
+    hostname: zoo2
+    ports:
+      - 2182:2181
+    environment:
+      ZK_MY_ID: 2
+      ZK_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
+
+  zoo3:
+    image: darebeat/zookeeper
+    restart: always
+    container_name: zoo3
+    hostname: zoo3
+    ports:
+      - 2183:2181
+    environment:
+      ZK_MY_ID: 3
+      ZK_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
+
+networks:
+  default:
+    external:
+      name: local
