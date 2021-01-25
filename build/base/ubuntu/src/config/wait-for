@@ -1,17 +1,17 @@
 #!/bin/bash
 #set -x
 #******************************************************************************
-# @file    : wait-for.sh
+# @file  : wait-for.sh
 # @author  : darebeat
-# @date    : 2019-08-28 10:18:43
+# @date  : 2019-08-28 10:18:43
 # @depends : nc -> yum install nc
 #******************************************************************************
 
 : ${SLEEP_SECOND:=2}
 
 wait_for() {
-    echo Waiting for $1 to listen on $2...
-    while ! nc -z $1 $2; do echo waiting...; sleep $SLEEP_SECOND; done
+  echo Waiting for $1 to listen on $2...
+  while ! nc -z $1 $2; do echo waiting...; sleep $SLEEP_SECOND; done
 }
 
 split() {
@@ -22,9 +22,9 @@ split() {
 
   for var in ${arr[@]}
   do
-      host=${var%:*}
-      port=${var#*:}
-      wait_for $host $port
+    host=${var%:*}
+    port=${var#*:}
+    wait_for $host $port
   done
 }
 
@@ -33,18 +33,18 @@ declare CMD
 
 while getopts "d:c:" arg
 do
-    case $arg in
-        d)
-            DEPENDS=$OPTARG
-            ;;
-        c)
-            CMD=$OPTARG
-            ;;
-        ?)
-            echo "unkonw argument"
-            exit 1
-            ;;
-    esac
+  case $arg in
+    d)
+      DEPENDS=$OPTARG
+      ;;
+    c)
+      CMD=$OPTARG
+      ;;
+    ?)
+      echo "unkonw argument"
+      exit 1
+      ;;
+  esac
 done
 
 split $DEPENDS

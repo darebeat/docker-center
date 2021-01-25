@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24点游戏</title>
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+ 
+<body>
+  <div class="container">
+    <div class="row clearfix">
+      <p>
+        <br><br>
+        <b>输入随机四个数字,进行加减乘除四则随机运算,最后得到结果为24的解法</b>
+      </p>
+      <blockquote>
+        输入格式如下:
+        <small>3,5,6,7</small>
+        <small>3 5 6 7</small>
+        <small>3;5;6;7</small>
+      </blockquote>
+    </div>
+  </div>
+  <div class="container">
+    
+    <div class="form-inline">
+      <label>请输入四位随机数字:</label>
+      <input type="text" class="form-control" id="digits" placeholder="3,5,6,7">
+      <button type="button" id="submit" onclick="btn()" class="btn btn-primary">输出结果</button>
+    </div>
+    
+  </div>
+  <div class="container">
+    <span id="display" class="row clearfix" style="color:green;">
+      结果展示区域
+    </span>
+  </div>
+  
+
+  <script>
+    // 方法一
+    // ---------------------------------------------
+    function equalTo24_1(a,b,c,d){
+      let as = new Set();
+
+      var ys = ['+','-','*','/'];
+      for(var i=0;i<4;i++){
+        var aa = [a,b,c,d];
+        var oa = [];
+        oa[0] = aa[i];
+        aa.splice(i,1);
+        for(let k=0;k<4;k++){       
+          for(let j=0;j<3;j++){
+            var oa1 = [...oa];
+            oa1.push(ys[k]);
+            var aa1 = [...aa];
+            oa1.push(aa1[j]);
+            aa1.splice(j,1);                
+            for(let k=0;k<4;k++){                   
+              for(let x=0;x<2;x++){
+                var oa2 = [...oa1];
+                oa2.push(ys[k]);            
+                var aa2 = [...aa1];
+                oa2.push(aa2[x]);
+                aa2.splice(x,1);                        
+                for(let k=0;k<4;k++){                   
+                  var oa3 = [...oa2];
+                  oa3.push(ys[k]);
+                  oa3.push(aa2[0]);
+                  var outEx = ib(oa3)
+                  if(outEx) as.add(outEx)
+                }
+              }
+            }
+          }
+        }
+      }
+
+      if (as.size == 0) {
+        return "It's no possible";
+      }
+      return as;
+    }
+    Array.prototype.insert = function (index, item) {
+      this.splice(index, 0, item);
+      return this
+    }
+    function ib(arr){
+      let expressionObj={
+        ex1:[...arr].insert(3,')').insert(0,'('),
+        ex2:[...arr].insert(5,')').insert(0,'('),
+        ex3:[...arr].insert(5,')').insert(2,'('),
+        ex4:[...arr].insert(7,')').insert(2,'('),
+        ex5:[...arr].insert(7,')').insert(4,'('),
+        ex6:[...arr].insert(7,')').insert(4,'(').insert(3,')').insert(0,'('),
+        ex7:[...arr].insert(5,')').insert(3,')').insert(0,'(').insert(0,'('),
+        ex8:[...arr].insert(7,')').insert(5,')').insert(2,'(').insert(2,'('),
+        ex9:[...arr].insert(5,')').insert(5,')').insert(2,'(').insert(0,'('),
+        ex10:[...arr].insert(7,')').insert(7,')').insert(4,'(').insert(2,'(')   
+      }
+      for(let value of Object.values(expressionObj)){     
+        var outStr = value.join().replace(/,/g,'');
+        if(eval(outStr)==24) return outStr
+      }
+    }
+
+    // var a =  equalTo24_1(2,4,2,2);
+    // console.log(a);
+
+
+    // 方法二
+    // ---------------------------------------------
+    function node(value, exp) {
+      this.value = value;
+      this.exp = exp;
+    }
+
+    function equalTo24_2(arr) {
+      let as = new Set();
+      let S = new Map();
+      let A = arr;
+
+      function run() {
+        for (var i = 0; i < (1 << 4); i++) {
+          let set = new Set();
+          S.set(i, set);
+        }
+        for (var i = 0; i < 4; i++) {
+          let n = new node(A[i], A[i] + "");
+          let set = new Set();
+          set.add(n);
+          S.set(1 << i, set);
+        }
+        for (var i = 1; i < (1 << 4); i++) {
+          fork(i);
+        }
+
+        let mSet = S.get((1 << 4) - 1);
+        for (let v of mSet.values()) {
+          if (v.value == 24) {
+            as.add(v.exp);
+          }
+        }
+      }
+
+      function fork(m) {
+        var mSet = S.get(m);
+        if (mSet.size > 0)
+          return mSet;
+        else {
+          for (var x = 1; x < m; x++) {
+            if ((x & m) == x) {
+              let s1 = fork(x);
+              let s2 = fork(m - x);
+              for (let n1 of s1)
+                for (let n2 of s2) {
+                  var str = "(" + n1.exp + "+" + n2.exp + ")";
+                  mSet.add(new node(n1.value + n2.value, str));
+                  str = "(" + n1.exp + "-" + n2.exp + ")";
+                  mSet.add(new node(n1.value - n2.value, str));
+                  str = "(" + n2.exp + "-" + n1.exp + ")";
+                  mSet.add(new node(n1.value - n2.value, str));
+                  str = "(" + n1.exp + "*" + n2.exp + ")";
+                  mSet.add(new node(n1.value * n2.value, str));
+                  if (n1.value != 0) {
+                    str = "(" + n2.exp + "/" + n1.exp + ")";
+                    mSet.add(new node(n2.value / n1.value, str));
+                  }
+                  if (n2.value != 0) {
+                    str = "(" + n1.exp + "/" + n2.exp + ")";
+                    mSet.add(new node(n1.value / n2.value, str));
+                  }
+                }
+            }
+          }
+          return mSet;
+        }
+      }
+      run();
+
+      if (as.size === 0) {
+        return "It's no possible";
+      }
+      return as;
+    }
+
+    // var a = equalTo24_2([12,40,5,6])
+    // console.log(a);
+
+    function btn() { 
+      let as = "NONE";//回复的字符串 默认回复NONE，表示无解
+      
+      let event = document.getElementById("digits");
+      let arr = event.value.trim().split(/[,; ]+/);
+      let a = parseInt(arr[0]);
+      let b = parseInt(arr[1]);
+      let c = parseInt(arr[2]);
+      let d = parseInt(arr[3]);
+
+      if (arr.length > 4) {
+        arr.length = 4;
+        alert("您输入的牌数大于4张，这边自动帮您删除");
+        return;
+      } else if (arr.length != 4){
+        alert('请正确输入四位随机数字!');
+        return;
+      } else {
+        // as=equalTo24_2([a,b,c,d]);
+        as=equalTo24_1(a,b,c,d);
+      }
+      
+      let text='刷新时间: '+new Date()+'<br><br>解法如下:<br>';
+      if (typeof(as)==='string') {
+        text+='<br>'+as;
+      } else {
+        for (let i of as) {
+          text+='<br>'+i;
+        }
+      }
+      document.getElementById("display").innerHTML=text;
+    };
+ </script>
+</body>
+ 
+</html>

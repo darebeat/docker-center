@@ -1,67 +1,44 @@
-version:  '3'
+version: '3'
 services:
-  master:
-    image: daocloud.io/darebeat/hadoop
-    container_name: hadoop-master
+  hadoop:
+    image: sequenceiq/hadoop-docker:2.7.1
+    container_name: hdfs
     networks:
-      cluster:
-        ipv4_address: 172.20.0.2
+      deploy:
+        ipv4_address: 172.10.0.199
         aliases:
-          - hadoop-master
-    volumes:
-      - ./src/config/hdfs-site.xml:${HADOOP_PATH:-/usr/local}/etc/hadoop/hdfs-site.xml
-      - ./src/config/core-site.xml:${HADOOP_PATH:-/usr/local}/etc/hadoop/core-site.xml
-      - ./src/config/mapred-site.xml:${HADOOP_PATH:-/usr/local}/etc/hadoop/mapred-site.xml
-      - ./src/config/yarn-site.xml:${HADOOP_PATH:-/usr/local}/etc/hadoop/yarn-site.xml
-      - ./src/config/masters:${HADOOP_PATH:-/usr/local}/etc/hadoop/masters
-      - ./src/config/slaves:${HADOOP_PATH:-/usr/local}/etc/hadoop/slaves
+          - hdfs
     extra_hosts:
-      - "slave1:172.20.0.3"
-      - "slave2:172.20.0.4"
-    hostname: master
+      - "hdfs:172.10.0.199"
     ports:
-      - 8088:8088
-      - 50070:50070
-    entrypoint: wait-for -d slave1:22,slave2:22 -c '/bootstrap.sh'
+      # sshd
+      - "2122:2122"
+      # Yarn ports
+      - "8030:8030"
+      - "8031:8031"
+      - "8032:8032"
+      - "8033:8033"
+      - "8040:8040"
+      - "8042:8042"
+      - "8088:8088"
+      # Mapred ports
+      - "10020:10020"
+      - "19888:19888"
+      # Hdfs ports
+      - "8020:8020"
+      - "9000:9000"
+      - "50010:50010"
+      - "50020:50020"
+      - "50070:50070"
+      - "50075:50075"
+      - "50090:50090"
+      # other
+      - "49707:49707"  
     environment:
-      ROLE: master
-
-  slave1:
-    image: daocloud.io/darebeat/hive
-    container_name: hadoop-slave1
-    networks:
-      cluster:
-        ipv4_address: 172.20.0.3
-        aliases:
-          - hadoop-slave1
-    extra_hosts:
-      - "master:172.20.0.2"
-      - "slave2:172.20.0.4"
-    hostname: slave1
-    environment:
-      ROLE: slave
-
-  slave2:
-    image: daocloud.io/darebeat/hive
-    container_name: hadoop-slave2
-    networks:
-      cluster:
-        ipv4_address: 172.20.0.4
-        aliases:
-          - hadoop-slave2
-    extra_hosts:
-      - "master:172.20.0.2"
-      - "slave1:172.20.0.3"
-    hostname: slave2
-    environment:
-      ROLE: slave
+      - TZ=Asia/Shanghai
+      - HOSTNAME=hdfs
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/java/default/bin:/usr/local/hadoop/bin
 
 networks:
-  cluster:
-    driver: bridge
-    driver_opts:
-      com.docker.network.enable_ipv6: "false"
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.20.0.0/16
+  deploy:
+    external: true
