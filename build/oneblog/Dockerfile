@@ -10,7 +10,8 @@ ARG ONEBLOG_VERSION=2.2.2
 
 WORKDIR /app/oneblog
 COPY docker-entrypoint.sh /
-COPY --from=build /build/target/blog-*.jar /app/oneblog
+COPY --from=build /build/blog-web/target/blog-web-$ONEBLOG_VERSION.jar /app/oneblog
+COPY --from=build /build/blog-admin/target/blog-admin-$ONEBLOG_VERSION.jar /app/oneblog
 ENV TZ=Asia/Shanghai
 # EXPOSE 8085 8443
 
