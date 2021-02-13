@@ -1,0 +1,59 @@
+# flink
+172.10.0.2   jobmanager
+172.10.0.3   taskmanager
+172.10.0.4   mysql
+172.10.0.5   tidb-pd
+172.10.0.6   tikv
+172.10.0.7   tidb
+172.10.0.8   zookeeper
+172.10.0.9   kafka
+172.10.0.10  redis
+
+# elk
+172.10.0.11  elk-es
+172.10.0.12  elk-kibana
+172.10.0.13  elk-logstash
+
+# es
+172.10.0.14  es-master
+172.10.0.15  es-node1
+172.10.0.16  es-node2
+172.10.0.17  es-head
+
+# clickhouse
+172.10.0.80  ck-zk
+172.10.0.81  ck-ch1
+172.10.0.82  ck-ch2
+172.10.0.83  ck-ch3
+172.10.0.84  ck-ch4
+
+172.18.0.100 edge
+172.10.0.101 mysql
+172.10.0.102 redis
+172.10.0.103 chevereto
+172.10.0.104 sqlserver
+172.10.0.105 mblog
+172.10.0.106 oracle
+
+172.10.0.107 mongodb
+172.10.0.108 jenkins
+172.10.0.109 confluence
+
+# wordpress
+172.10.0.110 wordpress-mysql
+172.10.0.111 wordpress-all
+172.10.0.112 wordpress-hyj
+172.10.0.113 wordpress-dt
+
+# wow60
+172.10.0.114 wow60-database
+172.10.0.115 wow60-realmd
+172.10.0.116 wow60-world-0
+
+# oneblog
+172.10.0.117 oneblog-mysql
+172.10.0.118 oneblog-redis
+172.10.0.119 oneblog-web
+172.10.0.120 oneblog-admin
+
+172.10.0.199 hadoop

@@ -1,0 +1,49 @@
+version: '3'
+services:
+  o_web:
+    image: darebeat/oneblog
+    container_name: o_web
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.119
+        aliases:
+          - web
+    extra_hosts:
+      - "mysql:172.10.0.117"
+      - "redis:172.10.0.118"
+    environment:
+      TZ: Asia/Shanghai
+    env_file:
+      - .env
+    command: web
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "8443:8443"
+
+  o_admin:
+    image: darebeat/oneblog
+    container_name: o_admin
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.120
+        aliases:
+          - admin
+    extra_hosts:
+      - "mysql:172.10.0.117"
+      - "redis:172.10.0.118"
+    environment:
+      TZ: Asia/Shanghai
+    env_file:
+      - .env
+    command: admin
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "8085:8085"
+
+networks:
+  deploy:
+    external: true

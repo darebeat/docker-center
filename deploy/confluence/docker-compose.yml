@@ -1,14 +1,17 @@
 version: '3'
 
 services:
-
   confluence:
     image: atlassian/confluence-server:6.4.3-alpine
+    container_name: confluence
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.109
+        aliases:
+          - confluence
     expose:
       - 8090
       - 8091
-    networks:
-      - share
     labels:
       - "share.enable=true"
       - "share.port=8090"
@@ -21,5 +24,5 @@ services:
       - ./mysql-connector-java-5.1.22.jar:/opt/atlassian/confluence/confluence/WEB-INF/lib/mysql-connector-java-5.1.22.jar
 
 networks:
-  share:
+  deploy:
     external: true

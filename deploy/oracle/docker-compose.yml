@@ -3,6 +3,11 @@ services:
   oracle:
     image: daocloud.io/darebeat/oracle-xe-11g
     container_name: oracle
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.106
+        aliases:
+          - oracle
     ports:
       - 49161:1521
       - 8080:8080
@@ -12,6 +17,5 @@ services:
       - ORACLE_ENABLE_XDB=true
 
 networks:
-  default:
-    external:
-      name: share
+  deploy:
+    external: true

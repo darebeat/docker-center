@@ -1,19 +1,18 @@
 version: '3'
 services:
-  redis:
+  o_redis:
     image: redis:6.0.10-alpine
-    ports:
-      - 6379:6379
-    container_name: redis
+    container_name: o_redis
     networks:
       deploy:
-        ipv4_address: 172.10.0.102
+        ipv4_address: 172.10.0.118
         aliases:
           - redis
     volumes:
-      - ./redis.conf:/etc/redis.conf
-      # - ./data:/data
+      - ./conf/redis.conf:/etc/redis.conf
     command: redis-server /etc/redis.conf
+    ports:
+      - 6379:6379
 
 networks:
   deploy:

@@ -1,0 +1,83 @@
+version: '3'
+services:
+  o_mysql:
+    image: mysql:5.7
+    container_name: o_mysql
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.117
+        aliases:
+          - mysql
+    ports:
+      - "3309:3306"
+    env_file:
+      - .env_mysql
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./db:/var/lib/mysql:rw
+      - ./conf/mysqld.conf:/etc/my.cnf:ro
+    tty: true
+
+  o_redis:
+    image: redis:6.0.10-alpine
+    container_name: o_redis
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.118
+        aliases:
+          - redis
+    volumes:
+      - ./conf/redis.conf:/etc/redis.conf
+    command: redis-server /etc/redis.conf
+    ports:
+      - 6379:6379
+
+  o_web:
+    image: darebeat/oneblog
+    container_name: o_web
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.119
+        aliases:
+          - web
+    extra_hosts:
+      - "mysql:172.10.0.117"
+      - "redis:172.10.0.118"
+    environment:
+      TZ: Asia/Shanghai
+    env_file:
+      - .env
+    command: web
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "8443:8443"
+
+  o_admin:
+    image: darebeat/oneblog
+    container_name: o_admin
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.120
+        aliases:
+          - admin
+    extra_hosts:
+      - "mysql:172.10.0.117"
+      - "redis:172.10.0.118"
+    environment:
+      TZ: Asia/Shanghai
+    env_file:
+      - .env
+    command: admin
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "8085:8085"
+
+networks:
+  deploy:
+    external: true

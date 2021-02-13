@@ -3,6 +3,11 @@ services:
   sqlserver:
     container_name: mssql
     image: microsoft/mssql-server-linux
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.104
+        aliases:
+          - mssql
     ports:
       - 1433:1433
     environment:
@@ -14,6 +19,5 @@ services:
       # - ~/data/mssql:/var/opt/mssql
 
 networks:
-  default:
-    external:
-      name: share
+  deploy:
+    external: true

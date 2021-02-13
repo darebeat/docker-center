@@ -1,4 +1,4 @@
-FROM darebeat/jdk8
+FROM darebeat/jdk8:ssh
 
 MAINTAINER darebeat<darebeat@126.com>
 

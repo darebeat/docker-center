@@ -1,23 +1,23 @@
 version: '3'
 services:
-  mysql:
+  o_mysql:
     image: mysql:5.7
-    container_name: mysql
+    container_name: o_mysql
     restart: always
     networks:
       deploy:
-        ipv4_address: 172.10.0.101
+        ipv4_address: 172.10.0.117
         aliases:
           - mysql
     ports:
-      - "3310:3306"
+      - "3309:3306"
     env_file:
-      - .env
+      - .env_mysql
     environment:
       - TZ=Asia/Shanghai
     volumes:
       - ./db:/var/lib/mysql:rw
-      - ./src/config/mysqld.cnf:/etc/my.cnf:ro
+      - ./conf/mysqld.conf:/etc/my.cnf:ro
     tty: true
 
 networks:

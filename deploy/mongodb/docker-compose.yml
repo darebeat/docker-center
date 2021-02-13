@@ -3,11 +3,15 @@ services:
   mongodb:
     image: mongo:3.2.16
     container_name: mongodb
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.107
+        aliases:
+          - mongodb
     ports:
         - 27017:27017
     command: mongod --auth --dbpath /data/db --port 27017
 
 networks:
-  default:
-    external:
-      name: share
+  deploy:
+    external: true

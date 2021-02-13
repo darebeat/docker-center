@@ -14,13 +14,13 @@ services:
     container_name: flink-jobmanager
     hostname: jobmanager
     networks:
-      flink:
-        ipv4_address: 172.18.0.2
+      deploy:
+        ipv4_address: 172.10.0.2
         aliases:
           - jobmanager
     extra_hosts:
-      - "taskmanager:172.18.0.3"
-      - "edge:172.18.0.100"
+      - "taskmanager:172.10.0.3"
+      - "edge:172.10.0.100"
     environment:
       - |
         FLINK_PROPERTIES=
@@ -42,13 +42,13 @@ services:
     container_name: flink-taskmanager
     hostname: taskmanager
     networks:
-      flink:
-        ipv4_address: 172.18.0.3
+      deploy:
+        ipv4_address: 172.10.0.3
         aliases:
           - taskmanager
     extra_hosts:
-      - "jobmanager:172.18.0.2"
-      - "edge:172.18.0.100"
+      - "jobmanager:172.10.0.2"
+      - "edge:172.10.0.100"
     scale: 1
     environment:
       - |
@@ -64,16 +64,16 @@ services:
     container_name: flink-edge
     hostname: edge
     networks:
-      flink:
-        ipv4_address: 172.18.0.100
+      deploy:
+        ipv4_address: 172.10.0.100
         aliases:
           - edge
     extra_hosts:
-      - "jobmanager:172.18.0.2"
-      - "taskmanager:172.18.0.3"
+      - "jobmanager:172.10.0.2"
+      - "taskmanager:172.10.0.3"
     ports:
       - "9000:9000"
 
 networks:
-  flink:
+  deploy:
     external: true

@@ -8,7 +8,7 @@ services:
     restart: always
     networks:
       deploy:
-        ipv4_address: 172.10.0.20
+        ipv4_address: 172.10.0.110
         aliases:
           - mysql
     env_file:
@@ -29,11 +29,11 @@ services:
     restart: always
     networks:
       deploy:
-        ipv4_address: 172.10.0.21
+        ipv4_address: 172.10.0.111
         aliases:
           - wordpress
     extra_hosts:
-      - "mysql:172.10.0.20"
+      - "mysql:172.10.0.110"
     env_file:
       - .env_wp_all
     environment:

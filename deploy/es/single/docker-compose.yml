@@ -1,0 +1,28 @@
+version: '3'
+services:
+  es:
+    image: elasticsearch:7.3.0
+    container_name: es
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.11
+        aliases:
+          - es
+    environment:
+      - cluster.name=es   #集群名称为 elasticsearch
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" #jvm内存分配为512MB
+      - "discovery.type=single-node" #单节点启动
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - ./data:/usr/share/elasticsearch/data
+      - ./logs:/usr/share/elasticsearch/logs
+      - ./conf.d/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+networks:
+  deploy:
+    external: true
