@@ -18,6 +18,7 @@ services:
     volumes:
       - ./db:/var/lib/mysql:rw
       - ./conf/mysqld.conf:/etc/my.cnf:ro
+      - ./sql:/docker-entrypoint-initdb.d
     tty: true
 
 networks:
