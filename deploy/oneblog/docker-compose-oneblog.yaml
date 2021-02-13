@@ -16,9 +16,9 @@ services:
     env_file:
       - .env
     command: web
-    depends_on:
-      - mysql
-      - redis
+    external_links:
+      - o_mysql
+      - o_redis
     ports:
       - "8443:8443"
 
@@ -38,9 +38,9 @@ services:
     env_file:
       - .env
     command: admin
-    depends_on:
-      - mysql
-      - redis
+    external_links:
+      - o_mysql
+      - o_redis
     ports:
       - "8085:8085"
 
