@@ -8,11 +8,11 @@ services:
         ipv4_address: 172.10.0.118
         aliases:
           - redis
-    volumes:
-      - ./conf/redis.conf:/etc/redis.conf
-    command: redis-server /etc/redis.conf
     ports:
       - 6379:6379
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./conf/redis.conf:/etc/redis.conf  
 
 networks:
   deploy:

@@ -15,7 +15,8 @@ services:
       TZ: Asia/Shanghai
     env_file:
       - .env
-    command: web
+    # command: web
+    entrypoint: /bin/sh
     external_links:
       - o_mysql
       - o_redis
@@ -37,7 +38,8 @@ services:
       TZ: Asia/Shanghai
     env_file:
       - .env
-    command: admin
+    # command: admin
+    entrypoint: /bin/sh
     external_links:
       - o_mysql
       - o_redis

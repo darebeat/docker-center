@@ -16,8 +16,8 @@ services:
     environment:
       - TZ=Asia/Shanghai
     volumes:
+      - ./conf/mysql.conf:/etc/my.cnf:ro
       - ./db:/var/lib/mysql:rw
-      - ./conf/mysqld.conf:/etc/my.cnf:ro
       - ./sql:/docker-entrypoint-initdb.d
     tty: true
 
