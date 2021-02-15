@@ -7,10 +7,8 @@ APP_NAME=blog-${1:-web}
 echo 'cd $BASE_PATH'
 
 # mysql config
-spring_datasource_druid_init="set names utf8mb4"
-spring_datasource_druid_driver="com.mysql.jdbc.Driver"
-spring_datasource_type="com.alibaba.druid.pool.DruidDataSource"
-spring_datasource_url=${spring_datasource_url:-"jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"}?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+FIX_URL='useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true'
+spring_datasource_url=${spring_datasource_url:-jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?${FIX_URL}}
 spring_datasource_username=${spring_datasource_username:-"${MYSQL_USERNAME}"}
 spring_datasource_password=${spring_datasource_password:-"${MYSQL_PASSWORD}"}
 # redis config 
@@ -28,22 +26,17 @@ usage() {
 }
 
 start(){
+  mkdir -p ${APP_PATH}/logs
   java -server -Xms256m -Xmx512m \
     -jar ${APP_PATH}/${APP_NAME}*.jar \
-    -Dspring.profiles.active: prod \
-    -Dspring.profiles.include: [center] \
-    -Dspring.datasource.druid.connection-init-sqls: ${spring_datasource_druid_init} \
-    -Dspring.datasource.druid.driver-class-name: ${spring_datasource_druid_driver} \
-    -Dspring.datasource.type: ${spring_datasource_type} \
-    -Dspring.datasource.url=${spring_datasource_url} \
-    -Dspring.datasource.username=${spring_datasource_username} \
-    -Dspring.datasource.password=${spring_datasource_password} \
-    -Dspring.redis.database: ${spring_redis_database} \
-    -Dspring.redis.host: ${spring_redis_host} \
-    -Dspring.redis.port: ${spring_redis_port} \
-    -Dspring.redis.password: ${spring_redis_password} \
-    -Dspring.session.store-type: redis
-  > ${APP_PATH}/${APP_NAME}.out 2>&1
+    --spring.datasource.url=${spring_datasource_url} \
+    --spring.datasource.username=${spring_datasource_username} \
+    --spring.datasource.password=${spring_datasource_password} \
+    --spring.redis.database=${spring_redis_database} \
+    --spring.redis.host=${spring_redis_host} \
+    --spring.redis.port=${spring_redis_port} \
+    --spring.redis.password=${spring_redis_password}
+  > ${APP_PATH}/logs/${APP_NAME}.out 2>&1
 }
 
 case "$1" in

@@ -1,17 +1,17 @@
 FROM maven:3.6.3-jdk-8 AS build
 WORKDIR /build
 RUN git clone https://github.com/zhangyd-c/OneBlog.git /build
-RUN mvn clean package -Dmaven.test.skip=true -Pdev
+RUN mvn clean package -Dmaven.test.skip=true
 
 
 FROM openjdk:8-jdk-alpine
 MAINTAINER darebeat<darebeat@126.com>
-ARG ONEBLOG_VERSION=2.2.2
+ARG OB_VERSION=2.2.2
 
 WORKDIR /app/oneblog
 COPY docker-entrypoint.sh /
-COPY --from=build /build/blog-web/target/blog-web-$ONEBLOG_VERSION.jar /app/oneblog
-COPY --from=build /build/blog-admin/target/blog-admin-$ONEBLOG_VERSION.jar /app/oneblog
+COPY --from=build /build/blog-web/target/blog-web-$OB_VERSION.jar /app/oneblog
+COPY --from=build /build/blog-admin/target/blog-admin-$OB_VERSION.jar /app/oneblog
 ENV TZ=Asia/Shanghai
 # EXPOSE 8085 8443
 
