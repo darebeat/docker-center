@@ -1,8 +1,9 @@
 FROM maven:3.6.3-jdk-8 AS build
 WORKDIR /build
 RUN git clone https://github.com/zhangyd-c/OneBlog.git /build
+RUN sed -i 's|<@aboutOneBlog></@aboutOneBlog>||g' blog-admin/src/main/resources/templates/index.ftl && \
+    sed -i 's|yadong.zhang/DBlog|darebeat|g' blog-web/src/main/resources/templates/layout/sidebar.ftl
 RUN mvn clean package -Dmaven.test.skip=true
-
 
 FROM openjdk:8-jdk-alpine
 MAINTAINER darebeat<darebeat@126.com>
