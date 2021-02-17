@@ -43,6 +43,8 @@ services:
       - o_redis
     ports:
       - "8085:8085"
+    volumes:
+      - ./upload:/uploads:z
 
 networks:
   deploy:

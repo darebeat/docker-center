@@ -36,7 +36,7 @@ eof
 #### create docker share networks
 
 ```sh
-docker network create --driver=bridge --subnet=172.18.0.0/16 deploy
+docker network create --driver=bridge --subnet=172.10.0.0/16 deploy
 docker network ls 
 docker network inspect deploy
 ```

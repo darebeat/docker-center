@@ -15,7 +15,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./conf/oneblog.conf:/etc/nginx/conf.d/oneblog.conf:ro
-      - ./upload:/var/www/upload:z
+      - ./upload:/var/www/uploads:z
 
 networks:
   deploy:

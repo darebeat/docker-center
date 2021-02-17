@@ -434,11 +434,15 @@ INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_t
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (35, 'installdate', '2020-07-09 11:59:23', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (36, 'copyright', 'Copyright darebeat.cn', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (37, 'dynamicTitle', '您有一条新消息', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (38, 'storageType', 'local', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (39, 'localFileUrl', 'http://localhost:8089/', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (40, 'localFilePath', '/uploads/', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+
 
 # 清空友情链接表
 TRUNCATE TABLE `oneblog`.`sys_link`;
 # 初始化友情链接
-INSERT INTO `oneblog`.`sys_link` VALUES ('1', 'https://blog.darebeat.cn', "darebeat's blog", '一个程序员的个人博客', 'darebeat@126.com', null, 'https://static.zhyd.me/static/img/favicon.ico', '1', '1', null, 'ADMIN', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_link` VALUES ('1', 'https://blog.darebeat.cn', "darebeat's blog", '一位程序员的个人博客', 'darebeat@126.com', null, 'https://sm.darebeat.cn/images/2021/02/16/DT.png', '1', '1', null, 'ADMIN', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 
 # 清空系统通知表
 TRUNCATE TABLE `oneblog`.`sys_notice`;

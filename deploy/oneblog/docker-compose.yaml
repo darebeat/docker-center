@@ -78,6 +78,23 @@ services:
     ports:
       - "8085:8085"
 
+  o_nginx:
+    image: nginx:alpine
+    container_name: o_nginx
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.121
+        aliases:
+          - nginx
+    ports:
+      - "8089:8089"
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./conf/oneblog.conf:/etc/nginx/conf.d/oneblog.conf:ro
+      - ./upload:/uploads:z
+
 networks:
   deploy:
     external: true
