@@ -378,29 +378,37 @@ SET FOREIGN_KEY_CHECKS = 1;
 #  该文件只用来初始化数据库内容，需要有权限执行创建数据库
 #
 ###################################  readme  ###################################
+# 清空标签表
+TRUNCATE TABLE `oneblog`.`biz_tags`;
+# 初始化标签
+INSERT INTO `oneblog`.`biz_tags` VALUES ('1', 'Shell', null, '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`biz_tags` VALUES ('2', 'Linux', null, '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`biz_tags` VALUES ('3', 'Docker', null, '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`biz_tags` VALUES ('4', 'K8S', null, '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`biz_tags` VALUES ('5', 'Algorithm', null, '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`biz_tags` VALUES ('6', '其他', null, '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 
 # 清空文章分类表
 TRUNCATE TABLE `oneblog`.`biz_type`;
 # 初始化文章分类
 INSERT INTO `oneblog`.`biz_type` VALUES ('1', null, '博客', '主要收集、整理在工作和生活中开发所需的基础的文章总结', '1', 'fa fa-css3', '1', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
-INSERT INTO `oneblog`.`biz_type` VALUES ('2', null, '分享', '主要收集和整理一些资源进行分享和备注', '2', 'fa fa-coffee', '1', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
-INSERT INTO `oneblog`.`biz_type` VALUES ('3', null, '其他', '记录网站建设以及日常工作、学习中的闲言碎语和个人笔记等文章', '3', 'fa fa-folder-open-o', '1', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`biz_type` VALUES ('2', null, '分享', '主要收集和整理一些资源进行分享和备注,记录网站建设以及日常工作、学习中的闲言碎语和个人笔记等文章', '2', 'fa fa-coffee', '1', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 
 # 清空系统配置表
 TRUNCATE TABLE `oneblog`.`sys_config`;
 # 初始化系统配置
-INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (1, 'homeDesc', '', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (1, 'homeDesc', '回首来时的路,我希望,还能看见走过的足迹', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (2, 'homeKeywords', 'darebeat,个人博客', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (3, 'domain', 'darebeat.cn', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (4, 'cmsUrl', 'http://localhost:8085', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (5, 'siteUrl', 'http://localhost:8443', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
-INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (6, 'siteName', "darebeat's blog", '2020-07-09 11:59:23', '2020-07-09 11:59:23');
-INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (7, 'siteDesc', 'darebeat, 做一个有内涵的个人博客', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
-INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (8, 'siteFavicon', 'http://localhost:8443/img/favicon.ico', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (6, 'siteName', 'A Personal Blog Of Darebeat', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (7, 'siteDesc', 'darebeat, 做一个有内涵的个人博客,趁年轻,做一些自己力所能及的事情', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (8, 'siteFavicon', 'https://sm.darebeat.cn/images/2021/02/16/DT.png', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (9, 'staticWebSite', 'http://localhost:8443', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (10, 'authorName', 'darebeat', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (11, 'authorEmail', 'darebeat@126.com', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
-INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (12, 'wxCode', 'https://sm.darebeat.cn/images/2020/11/09/qrcode_for_wechar.th.jpg', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (12, 'wxCode', 'https://sm.darebeat.cn/images/2020/11/09/qrcode_for_wechar.jpg', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (13, 'qq', '871731559', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (14, 'weibo', 'http://weibo.com', '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (15, 'github', 'https://github.com/darebeat', '2020-07-09 11:59:23', '2020-07-09 11:59:23');

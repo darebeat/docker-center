@@ -16,7 +16,9 @@ spring_redis_host=${spring_redis_host:-127.0.0.1}
 spring_redis_port=${spring_redis_port:-6379}
 spring_redis_password=${spring_redis_password:-'qwe!@#123'}
 
-java -server -Xms256m -Xmx512m \
+
+# -Xms256m -Xmx512m
+java -server \
   -jar blog-admin/target/blog-admin-${OB_VERSION}.jar \
   --spring.datasource.url=${spring_datasource_url} \
   --spring.datasource.username=${spring_datasource_username} \
@@ -27,7 +29,7 @@ java -server -Xms256m -Xmx512m \
   --spring.redis.password=${spring_redis_password}
   
 
-java -server -Xms256m -Xmx512m \
+java -server \
   -jar blog-web/target/blog-web-${OB_VERSION}.jar \
   --spring.datasource.url=${spring_datasource_url} \
   --spring.datasource.username=${spring_datasource_username} \
@@ -36,4 +38,9 @@ java -server -Xms256m -Xmx512m \
   --spring.redis.host=${spring_redis_host} \
   --spring.redis.port=${spring_redis_port} \
   --spring.redis.password=${spring_redis_password}
+
+docker exec -it o_redis redis-cli -h 127.0.0.1 -p 6379 -a qwe\!\@#123 --raw
+select 5
+keys *
+FLUSHALL
 ```

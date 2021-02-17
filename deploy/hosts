@@ -55,5 +55,6 @@
 172.10.0.118 oneblog-redis
 172.10.0.119 oneblog-web
 172.10.0.120 oneblog-admin
+172.10.0.121 oneblog_nginx
 
 172.10.0.199 hadoop

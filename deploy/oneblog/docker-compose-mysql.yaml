@@ -18,7 +18,7 @@ services:
     volumes:
       - ./conf/mysql.conf:/etc/my.cnf:ro
       - ./db:/var/lib/mysql:rw
-      - ./sql:/docker-entrypoint-initdb.d
+      - ./sql/oneblog.sql:/docker-entrypoint-initdb.d/oneblog.sql:ro
     tty: true
 
 networks:

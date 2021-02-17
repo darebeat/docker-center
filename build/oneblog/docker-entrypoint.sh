@@ -27,7 +27,7 @@ usage() {
 
 start(){
   mkdir -p ${APP_PATH}/logs
-  java -server -Xms256m -Xmx512m \
+  java -server ${JAVA_ARG_OPT:-"-Xms256m -Xmx512m"} \
     -jar ${APP_PATH}/${APP_NAME}*.jar \
     --spring.datasource.url=${spring_datasource_url} \
     --spring.datasource.username=${spring_datasource_username} \
