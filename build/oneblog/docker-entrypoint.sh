@@ -17,6 +17,8 @@ spring_redis_host=${spring_redis_host:-127.0.0.1}
 spring_redis_port=${spring_redis_port:-6379}
 spring_redis_password=${spring_redis_password:-qwe!@#123}
 
+JAVA_ARG_OPT=${JAVA_ARG_OPT:--Xms256m -Xmx512m}
+
 usage() {
   echo "Please select database type: "
   echo "web        start web server"
@@ -27,7 +29,7 @@ usage() {
 
 start(){
   mkdir -p ${APP_PATH}/logs
-  java -server ${JAVA_ARG_OPT:-"-Xms256m -Xmx512m"} \
+  java -server ${JAVA_ARG_OPT} \
     -jar ${APP_PATH}/${APP_NAME}*.jar \
     --spring.datasource.url=${spring_datasource_url} \
     --spring.datasource.username=${spring_datasource_username} \
