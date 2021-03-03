@@ -639,7 +639,7 @@ INSERT INTO `oneblog`.`sys_role_resources` VALUES ('78', '3', '49', '2020-07-09 
 # 清空系统用户表
 TRUNCATE TABLE `oneblog`.`sys_user`;
 # 初始化系统用户
-INSERT INTO `oneblog`.`sys_user` VALUES (1, 'root', 'CGUx1FN++xS+4wNDFeN6DA==', '超级管理员', '18600000000', '871731559@qq.com', '871731559', NULL, NULL, 'https://static.zhyd.me/static/img/favicon.ico', 'ROOT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, '0:0:0:0:0:0:0:1', '2020-07-09 11:59:23', 254, NULL, 1, '2020-07-09 11:59:23', '2020-07-09 11:59:23');
+INSERT INTO `oneblog`.`sys_user` VALUES (1, 'root', 'CGUx1FN++xS+4wNDFeN6DA==', '超级管理员', '18600000000', '871731559@qq.com', '871731559', NULL, NULL, 'https://sm.darebeat.cn/images/2021/02/16/DT.png', 'ROOT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, '0:0:0:0:0:0:0:1', '2020-07-09 11:59:23', 254, NULL, 1, '2020-07-09 11:59:23', '2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_user` VALUES (2, 'admin', 'gXp2EbyZ+sB/A6QUMhiUJQ==', '管理员', '18600000000', '871731559@qq.com', '871731559', NULL, NULL, NULL, 'ADMIN', NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 0, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1','2020-07-09 11:59:23', 2, NULL, 1,'2020-07-09 11:59:23','2020-07-09 11:59:23');
 INSERT INTO `oneblog`.`sys_user` VALUES (3, 'comment-admin', 'x9qCx3yP05yWfIE5wXbCsg==', '评论审核管理员', '', '', '', NULL, NULL, NULL, 'ADMIN', NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 0, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1','2020-07-09 11:59:23', 1, NULL, 1,'2020-07-09 11:59:23','2020-07-09 11:59:23');
 
