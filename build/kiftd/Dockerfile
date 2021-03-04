@@ -1,6 +1,6 @@
 FROM maven:3.6.3-jdk-8 AS build
 WORKDIR /build
-RUN git clone https://gitee.com/kohgylw/kiftd.git /build
+RUN git clone https://github.com/KOHGYLW/kiftd.git /build
 
 FROM openjdk:8-jdk-alpine
 MAINTAINER darebeat<darebeat@126.com>
