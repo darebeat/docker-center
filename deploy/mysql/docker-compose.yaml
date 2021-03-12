@@ -1,0 +1,26 @@
+version: '3.1'
+services:
+  db:
+    image: mysql:8.0.23
+    container_name: mysql
+    restart: always
+    security_opt:
+      - seccomp:unconfined
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.101
+        aliases:
+          - mysql
+    ports:
+      - "3310:3306"
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - "./db:/var/lib/mysql"
+      - "./src/config:/etc/mysql/conf.d"
+
+networks:
+  deploy:
+    external: true

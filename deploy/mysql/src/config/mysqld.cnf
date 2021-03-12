@@ -7,6 +7,7 @@ max_allowed_packet=500M
 
 [mysqld]
 character-set-server=utf8mb4
+collation-server=utf8mb4_general_ci
 default_authentication_plugin=mysql_native_password
 ft_min_word_len=2
 lower_case_table_names=1

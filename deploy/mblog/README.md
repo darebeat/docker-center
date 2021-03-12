@@ -3,7 +3,7 @@
 ## 初始化数据库和用户
 
 ```sql
-create database <DB NAME>;
+create database <DB NAME> CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 create user <DB USER>@'%' identified by '<DB PASS>';
 grant all privileges on chevereto.* to <DB NAME>;
 flush privileges;

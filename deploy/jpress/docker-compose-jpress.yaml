@@ -1,0 +1,31 @@
+version: '3'
+services:
+  jpress:
+    image: fuhai/jpress:v3.3.0
+    container_name: jpress_web
+    restart: always
+    external_links:
+      - jpress_db
+    extra_hosts:
+      - "jpress_db:172.10.0.21"
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.22
+        aliases:
+          - jpress
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - "./docker_volumes/webapp/attachment:/opt/jpress/webapp/attachment"
+      - "./docker_volumes/webapp/addons:/opt/jpress/webapp/addons"
+      - "./docker_volumes/webapp/WEB-INF/addons:/opt/jpress/webapp/WEB-INF/addons"
+      - "./docker_volumes/webapp/wp-content:/opt/jpress/webapp/wp-content"
+      - "./docker_volumes/webapp/templates/dockers:/opt/jpress/webapp/templates/dockers"
+
+networks:
+  deploy:
+    external: true

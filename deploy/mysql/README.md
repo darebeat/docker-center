@@ -4,7 +4,7 @@
 
 ```sql
 -- 创建数据库
-create database test;
+create database test CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 -- 创建用户
 create user test@'%' identified by 'test0755';
 

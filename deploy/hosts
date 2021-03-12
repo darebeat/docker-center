@@ -21,6 +21,11 @@
 172.10.0.17  es-head
 
 172.10.0.18  kiftd
+172.10.0.19  odoo_db
+172.10.0.20  odoo_web
+172.10.0.21  jpress_db
+172.10.0.22  jpress_web
+
 
 # clickhouse
 172.10.0.80  ck-zk
