@@ -24,7 +24,7 @@ services:
       - "./docker_volumes/webapp/addons:/opt/jpress/webapp/addons"
       - "./docker_volumes/webapp/WEB-INF/addons:/opt/jpress/webapp/WEB-INF/addons"
       - "./docker_volumes/webapp/wp-content:/opt/jpress/webapp/wp-content"
-      - "./docker_volumes/webapp/templates/dockers:/opt/jpress/webapp/templates/dockers"
+      - "./docker_volumes/webapp/templates/light-tm:/opt/jpress/webapp/templates/light-tm"
 
 networks:
   deploy:
