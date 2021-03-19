@@ -20,7 +20,7 @@ cd OneBlog
 # 代码运行
 mvn -X clean package -Dmaven.test.skip=true
 
-OB_VERSION=2.2.2
+OB_VERSION=2.2.3
 FIX_URL='useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true'
 spring_datasource_url=jdbc:mysql://127.0.0.1:3309/oneblog?${FIX_URL}
 spring_datasource_username=oneblog
