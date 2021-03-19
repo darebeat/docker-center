@@ -1,7 +1,7 @@
 version: '3'
 services:
   o_web:
-    image: darebeat/oneblog
+    image: darebeat/oneblog:2.2.3
     container_name: o_web
     networks:
       deploy:
@@ -23,7 +23,7 @@ services:
       - "8443:8443"
 
   o_admin:
-    image: darebeat/oneblog
+    image: darebeat/oneblog:2.2.3
     container_name: o_admin
     networks:
       deploy:

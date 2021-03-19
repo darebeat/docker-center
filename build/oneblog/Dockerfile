@@ -5,7 +5,7 @@ RUN mvn clean package -Dmaven.test.skip=true
 
 FROM openjdk:8-jdk-alpine
 MAINTAINER darebeat<darebeat@126.com>
-ARG OB_VERSION=2.2.2
+ARG OB_VERSION=2.2.3
 
 WORKDIR /app/oneblog
 COPY docker-entrypoint.sh /
