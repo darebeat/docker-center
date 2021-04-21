@@ -11,9 +11,19 @@ services:
         aliases:
           - redis
     volumes:
-      - ./redis.conf:/etc/redis.conf
-      # - ./data:/data
-    command: redis-server /etc/redis.conf
+      # - ./redis.conf:/etc/redis.conf
+      - ./data/redis:/data
+    command: 
+      - sh
+      - -c
+      - |
+        cat > /etc/redis.conf << EOF
+        # redis的databases数量
+        databases 32 
+        # redis密码
+        requirepass 123 
+        EOF
+        redis-server /etc/redis.conf
 
 networks:
   deploy:

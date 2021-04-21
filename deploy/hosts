@@ -64,4 +64,12 @@
 172.10.0.120 oneblog-admin
 172.10.0.121 oneblog_nginx
 
+# hive
+172.10.0.122 hdfs-namenode
+172.10.0.123 hdfs-datanode
+172.10.0.124 hive-metastore-postgresql
+172.10.0.125 hive-metastore
+172.10.0.126 hive-server
+172.10.0.127 presto-coordinator
+
 172.10.0.199 hadoop

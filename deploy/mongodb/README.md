@@ -45,7 +45,10 @@ db.auth("cet_read","cE)t4Ne28(p")
 
 ```sh
 # way 1
-mongo --host localhost --port 27017 -u "cet_read" -p "cE)t4Ne28(p" --authenticationDatabase "survey"
+mongo --host localhost --port 27017 \
+-u "cet_read" \
+-p "cE)t4Ne28(p" \
+--authenticationDatabase "survey"
 
 # way 2
 mongo --host localhost --port 27017

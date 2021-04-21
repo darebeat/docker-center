@@ -1,0 +1,17 @@
+version: "3"
+services:
+  presto:
+    image: shawnzhu/prestodb:329
+    container_name: presto
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./conf/hdp:/opt/hadoop/conf
+      - ./conf/presto:/usr/lib/presto/default/etc
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.127
+
+networks:
+  deploy:
+    external: true

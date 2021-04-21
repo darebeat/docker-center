@@ -71,4 +71,9 @@ sh oneblog.sh start
 # 注意,mysql数据库初始化没有进行强制依赖,可以按下面步骤启动
 sh oneblog.sh
 docker-compose -f ${BASE_PATH:-.}/docker-compose-oneblog.yaml up -d
+
+git tag -d oneblog-v2.2.3
+git push origin :refs/tags/oneblog-v2.2.3
+git tag -a oneblog-v2.2.3 -m "add: oneblog v2.2.3 version tag here"
+git push origin oneblog-v2.2.3
 ```
