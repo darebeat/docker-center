@@ -12,6 +12,11 @@ services:
       TZ: Asia/Shanghai
     ports:
       - "8081:8080"
+    # command: 
+    #   - bash
+    #   - -c
+    #   - |
+    #     java -jar /root/kiftd/kiftd-1.0.35-RELEASE.jar -start
 
 networks:
   deploy:

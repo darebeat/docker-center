@@ -1,15 +1,18 @@
 FROM centos:7.6.1810
+MAINTAINER darebeat<darebeat@126.com>
+ARG PYTHON_VERSION=2.7.18
+
 RUN set -ex \
     # 预安装所需组件
     && yum install -y wget tar libffi-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make initscripts zip\
-    && wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz \
-    && tar -zxvf Python-2.7.18.tgz \
-    && cd Python-2.7.18 \
+    && wget --no-check-certificate https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz \
+    && tar -zxvf Python-$PYTHON_VERSION.tgz \
+    && cd Python-$PYTHON_VERSION \
     && ./configure prefix=/usr/local/python2 \
     && make \
     && make install \
     && make clean \
-    && rm -rf /Python-2.7.18*
+    && rm -rf /Python-$PYTHON_VERSION*
 # 设置默认为python
 RUN set -ex \
     && mv /usr/bin/python /usr/bin/python27 \

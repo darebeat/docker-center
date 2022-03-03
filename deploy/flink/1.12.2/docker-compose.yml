@@ -1,0 +1,79 @@
+version: "3"
+services:
+  jobmanager:
+    image: ${FLINK_VERSION:-darebeat/flink:1.12.0-scala_2.11}
+    ports:
+      - "8081:8081"
+    command:
+      - bash
+      - -c
+      - |
+        sed -i 's/start-foreground/start/g' /docker-entrypoint.sh
+        /docker-entrypoint.sh jobmanager 
+        tail -f /docker-entrypoint.sh
+    container_name: flink-jobmanager
+    hostname: jobmanager
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.2
+        aliases:
+          - jobmanager
+    extra_hosts:
+      - "taskmanager:172.10.0.3"
+      - "edge:172.10.0.100"
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+    volumes:
+      - ./artifacts:/opt/flink/usrlib
+
+  taskmanager:
+    image: ${FLINK_VERSION:-darebeat/flink:1.12.0-scala_2.11}
+    depends_on:
+      - jobmanager
+    command:
+      - bash
+      - -c
+      - |
+        sed -i 's/start-foreground/start/g' /docker-entrypoint.sh
+        /docker-entrypoint.sh taskmanager 
+        tail -f /docker-entrypoint.sh
+    container_name: flink-taskmanager
+    hostname: taskmanager
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.3
+        aliases:
+          - taskmanager
+    extra_hosts:
+      - "jobmanager:172.10.0.2"
+      - "edge:172.10.0.100"
+    scale: 1
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+    volumes:
+      - ./artifacts:/opt/flink/usrlib
+
+  edge:
+    image: darebeat/netcat:latest
+    command: tail -f /entrypoint.sh
+    container_name: flink-edge
+    hostname: edge
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.100
+        aliases:
+          - edge
+    extra_hosts:
+      - "jobmanager:172.10.0.2"
+      - "taskmanager:172.10.0.3"
+    ports:
+      - "9000:9000"
+
+networks:
+  deploy:
+    external: true

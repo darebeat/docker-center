@@ -1,0 +1,23 @@
+version: '3'
+services:
+  kodexplorer:
+    image: darebeat/kodexplore
+    container_name: kodexplore
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.129
+        aliases:
+          - kodexplore
+    ports:
+      - '8013:80'
+    # env_file:
+    #   - .env
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - './data:/var/www/html'
+
+networks:
+  deploy:
+    external: true

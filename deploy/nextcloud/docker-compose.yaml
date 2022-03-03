@@ -1,0 +1,23 @@
+version: '3'
+services:
+  nextcloud:
+    container_name: nextcloud
+    image: nextcloud
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.130
+        aliases:
+          - nextcloud
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8888:80"
+    depends_on:
+      - mysql
+    volumes:
+      - ./data:/var/www/html/data
+    
+networks:
+  deploy:
+    external: true

@@ -1,0 +1,16 @@
+pymysql==1.0.2
+pyodps==0.10.6
+pyspark==2.3.0
+pymssql==2.2.4
+pypandoc==1.5
+xlwt==1.3.0
+cx_Oracle==8.3.0
+pyhive==0.6.4
+ipython-sql==0.4.0
+DBUtils==3.0.2
+pipdeptree==2.2.1
+pipreqs==0.4.11
+line_profiler==3.4.0
+memory_profiler==0.60.0
+pandas-datareader==0.10.0
+netcdf4==1.5.8

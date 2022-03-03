@@ -35,7 +35,7 @@ networks:
 
 ```sh
 git clone https://github.com/darebeat/docker-center.git
-cd docker-center/deploy/flink/1.11.0
+cd docker-center/deploy/flink/1.12.2
 
 # Start JobManager and TaskManager
 docker-compose up -d

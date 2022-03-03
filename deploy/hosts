@@ -26,6 +26,8 @@
 172.10.0.21  jpress_db
 172.10.0.22  jpress_web
 
+# zentao
+172.10.0.23  zentao 
 
 # clickhouse
 172.10.0.80  ck-zk
@@ -34,7 +36,7 @@
 172.10.0.83  ck-ch3
 172.10.0.84  ck-ch4
 
-172.18.0.100 edge
+172.10.0.100 edge
 172.10.0.101 mysql
 172.10.0.102 redis
 172.10.0.103 chevereto
@@ -71,5 +73,11 @@
 172.10.0.125 hive-metastore
 172.10.0.126 hive-server
 172.10.0.127 presto-coordinator
+172.10.0.128 presto
+
+172.10.0.129 kodexplorer
+172.10.0.130 nextcloud
+172.10.0.131 jupyter
+172.10.0.132 gitea
 
 172.10.0.199 hadoop

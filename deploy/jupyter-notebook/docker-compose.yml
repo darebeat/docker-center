@@ -1,0 +1,23 @@
+version:  '3'
+services:
+  datascience-notebook:
+    image: jupyter/datascience-notebook
+    container_name: jupyter
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.131
+        aliases:
+          - jupyter
+    volumes:
+      - ./data/work:/home/jovyan/work
+      - ./data/work/datasets:/home/jovyan/work/datasets
+      - ./data/work/modules:/home/jovyan/work/modules
+    ports:
+      - ${PORT}:8888
+    command: "start-notebook.sh \
+      --NotebookApp.password_required=True \
+      --NotebookApp.password=${ACCESS_TOKEN}"
+
+networks:
+  deploy:
+    external: true

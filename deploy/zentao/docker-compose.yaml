@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  zentao:
+    image: idoop/zentao:latest
+    container_name: zentao
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - ADMINER_USER=root
+      - ADMINER_PASSWD=123456
+      - BIND_ADDRESS=false
+
+    # env_file:
+    #   - .env
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.23
+        aliases:
+          - zentao
+    ports:
+      - 8012:80
+      - 8013:3306
+    external_links:
+      - mysql
+    volumes:
+      - ./data:/opt/zbox/
+
+networks:
+  deploy:
+    external: true

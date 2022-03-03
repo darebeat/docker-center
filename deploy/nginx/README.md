@@ -14,6 +14,12 @@ firewall-cmd --reload
 systemctl restart firewalld.service
 # 查看开放的端口
 firewall-cmd --list-all
+
+
+systemctl start firewalld  # 开启防火墙
+systemctl stop firewalld   # 关闭防火墙
+systemctl status firewalld # 查看防火墙开启状态，显示running则是正在运行
+firewall-cmd --reload      # 重启防火墙，永久打开端口需要reload一下
 ```
 
 ## 生成`dhparams`

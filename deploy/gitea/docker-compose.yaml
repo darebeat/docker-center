@@ -1,0 +1,29 @@
+version: '3'
+services:
+  server:
+    image: gitea/gitea:1.16.0
+    container_name: gitea
+    environment:
+      APP_NAME: "Gitea: Git with a cup of tea"
+      USER_UID: 1000
+      USER_GID: 1000
+      TZ: Asia/Shanghai
+    env_file:
+      - .env
+    restart: always
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.132
+        aliases:
+          - gitea
+    ports:
+      - "3000:3000"
+      - "222:22"
+    external_links:
+      - mysql
+    volumes:
+      - ./gitea:/data
+
+networks:
+  deploy:
+    external: true

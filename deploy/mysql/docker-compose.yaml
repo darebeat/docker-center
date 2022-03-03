@@ -20,6 +20,8 @@ services:
     volumes:
       - "./db:/var/lib/mysql"
       - "./src/config:/etc/mysql/conf.d"
+    command: 
+      --default-authentication-plugin=mysql_native_password
 
 networks:
   deploy:

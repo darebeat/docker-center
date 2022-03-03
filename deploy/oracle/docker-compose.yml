@@ -1,7 +1,7 @@
 version: '2'
 services:
   oracle:
-    image: daocloud.io/darebeat/oracle-xe-11g
+    image: truevoly/oracle-12c
     container_name: oracle
     networks:
       deploy:
@@ -12,9 +12,12 @@ services:
       - 49161:1521
       - 8080:8080
     environment:
+      - DBCA_TOTAL_MEMORY=4096
       - ORACLE_ALLOW_REMOTE=true
       - ORACLE_DISABLE_ASYNCH_IO=true
       - ORACLE_ENABLE_XDB=true
+    # volumes:
+    #   - ./data:/u01/app/oracle
 
 networks:
   deploy:
