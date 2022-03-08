@@ -1,0 +1,64 @@
+version: "3"
+services:
+  executor:
+    image: darebeat/azkaban-executor:3.57.0
+    container_name: azkaban-executor
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    external_links:
+      - mysql
+    # extra_hosts:
+    #   - "mysql:172.10.0.101"
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.134
+        aliases:
+          - executor
+    volumes:
+      - ./conf/azkaban-exec/azkaban.properties:/azkaban-exec-server-$AZK_VERSION/conf/azkaban.properties
+      - ./lib/mysql-connector-java-8.0.15.jar:/azkaban-exec-server-$AZK_VERSION/lib/mysql-connector-java-8.0.15.jar
+    command:
+      - bash
+      - -c
+      - |
+        rm -rf /azkaban-exec-server-$AZK_VERSION/lib/mysql-connector-java-5.1*.jar
+        bash /azkaban-exec-server-$AZK_VERSION/bin/start-exec.sh
+        touch /azkaban-exec-server-$AZK_VERSION/empty.out
+        tail -f /azkaban-exec-server-$AZK_VERSION/*.out
+
+  webserver:
+    image: darebeat/azkaban-webserver:3.57.0
+    container_name: azkaban-webserver
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "8443:8443"
+    links:
+      - executor:azkaban-executor
+    external_links:
+      - mysql
+    # extra_hosts:
+    #   - "mysql:172.10.0.101"
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.135
+        aliases:
+          - webserver
+    volumes:
+      - ./conf/azkaban-webserver/azkaban.properties:/azkaban-web-server-$AZK_VERSION/conf/azkaban.properties
+      - ./conf/azkaban-webserver/azkaban-users.xml:/azkaban-web-server-$AZK_VERSION/conf/azkaban-users.xml
+      - ./lib/mysql-connector-java-8.0.15.jar:/azkaban-web-server-$AZK_VERSION/lib/mysql-connector-java-8.0.15.jar
+    command:
+      - bash
+      - -c
+      - |
+        rm -rf /azkaban-web-server-$AZK_VERSION/lib/mysql-connector-java-5.1*.jar
+        bash /azkaban-web-server-$AZK_VERSION/bin/start-web.sh
+        touch /azkaban-web-server-$AZK_VERSION/*.out
+        tail -f /azkaban-web-server-$AZK_VERSION/*.out
+
+networks:
+  deploy:
+    external: true

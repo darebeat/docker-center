@@ -79,5 +79,10 @@
 172.10.0.130 nextcloud
 172.10.0.131 jupyter
 172.10.0.132 gitea
+172.10.0.133 yanagishima
+172.10.0.134 azkaban-webserver
+172.10.0.135 azkaban-executor
+172.10.0.136 azkaban-mariadb
+
 
 172.10.0.199 hadoop

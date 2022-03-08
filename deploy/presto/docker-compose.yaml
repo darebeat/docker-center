@@ -1,12 +1,32 @@
 version: "3"
 services:
-  presto:
-    image: shawnzhu/prestodb:329
-    container_name: presto-server
+  yanagishima:
+    image: szyn/docker-yanagishima
+    container_name: yanagishima
     ports:
-      - "8080:8080"
+      - "8016:8080"
+    environment:
+      PRESTO_COODINATOR_URL: http://presto:8080
+      CATALOG: local
+      SCHEMA: test
+    depends_on:
+      - presto
+    external_links:
+      - mysql
+    # volumes:
+    #   - ./conf/yanagishima.properties:/opt/yanagishima-6.0/conf/yanagishima.properties
+    networks:
+      deploy:
+        ipv4_address: 172.10.0.133
+
+  presto:
+    image: darebeat/presto:latest
+    container_name: presto
+    ports:
+      - "8015:8080"
     volumes:
-      - ./conf:/usr/lib/presto/default/etc
+      - ./conf/etc:/opt/presto/etc
+      - ./plugin/odps:/opt/presto/plugin/odps
     networks:
       deploy:
         ipv4_address: 172.10.0.128
