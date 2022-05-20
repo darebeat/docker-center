@@ -20,7 +20,7 @@ cd OneBlog
 # 代码运行
 mvn -X clean package -Dmaven.test.skip=true
 
-OB_VERSION=2.2.3
+OB_VERSION=2.2.4
 FIX_URL='useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true'
 spring_datasource_url=jdbc:mysql://127.0.0.1:3309/oneblog?${FIX_URL}
 spring_datasource_username=oneblog
@@ -72,8 +72,15 @@ sh oneblog.sh start
 sh oneblog.sh
 docker-compose -f ${BASE_PATH:-.}/docker-compose-oneblog.yaml up -d
 
-git tag -d oneblog-v2.2.3
-git push origin :refs/tags/oneblog-v2.2.3
-git tag -a oneblog-v2.2.3 -m "add: oneblog v2.2.3 version tag here"
-git push origin oneblog-v2.2.3
+git tag -d oneblog-v2.2.4
+git push origin :refs/tags/oneblog-v2.2.4
+git tag -a oneblog-v2.2.4 -m "add: oneblog v2.2.4 version tag here"
+git push origin oneblog-v2.2.4
+```
+
+## 修复 cdn.jsdelivr.net 无法访问的问题
+
+```sh
+gcore.jsdelivr.net
+fastly.jsdelivr.net
 ```

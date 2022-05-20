@@ -1,0 +1,12 @@
+FROM openjdk:8-jdk-alpine
+MAINTAINER darebeat<darebeat@126.com>
+ARG OB_VERSION=2.2.4
+
+WORKDIR /app/oneblog
+COPY docker-entrypoint.sh /
+COPY blog-web-$OB_VERSION.jar /app/oneblog
+COPY blog-admin-$OB_VERSION.jar /app/oneblog
+ENV TZ=Asia/Shanghai
+# EXPOSE 8085 8443
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
