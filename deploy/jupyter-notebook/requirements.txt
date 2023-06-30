@@ -9,7 +9,7 @@ pyhive==0.6.4
 ipython-sql==0.4.0
 DBUtils==3.0.2
 pipdeptree==2.2.1
-pipreqs==0.4.11
+pipreqs==0.4.12
 line_profiler==3.4.0
 memory_profiler==0.60.0
 pandas-datareader==0.10.0
